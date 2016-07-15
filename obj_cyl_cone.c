@@ -20,7 +20,7 @@ int		solv_equa(t_hit_equa *q, t_obj *s, double *t)
 {
 	double	time;
 	double	d;
-	double	tmp;
+	double	temp;
 
 	d = q->b * q->b - 4 * q->a * q->c;
 	if (d < 0)
@@ -31,13 +31,13 @@ int		solv_equa(t_hit_equa *q, t_obj *s, double *t)
 	scalar_multiply(set_to(&(q->inter), q->r_dir), time);
 	add(&(q->inter), q->r_pos);
 	subtract(set_to(&(q->proj), &(q->inter)), &(q->aa));
-	tmp = dot_product(&(q->ab), &(q->proj)) / q->ab2;
-	scalar_multiply(&(q->ab), tmp);
+	temp = dot_product(&(q->ab), &(q->proj)) / q->ab2;
+	scalar_multiply(&(q->ab), temp);
 	add(&(q->ab), &(q->aa));
 	set_to(&(q->proj), &(q->ab));
 	subtract(&(q->proj), &(s->pos));
-	tmp = length_vec(&(q->proj));
-	if (tmp < s->h)
+	temp = length_vec(&(q->proj));
+	if (temp < s->h)
 		*t = time;
 	else
 		return (0);

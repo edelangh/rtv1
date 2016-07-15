@@ -3,14 +3,14 @@
 void	colour_reflexion(t_env *env, t_obj *obj, t_vect *n, int a)
 {
 	t_vect	r;
-	t_vect	tmp2;
+	t_vect	temp;
 	double	colour[5];
 	int		i;
 	t_obj	*res;
 
 	scalar_multiply(set_to(&r, n), dot_product(n, &(env->save_dir)) * 2);
-	subtract(set_to(&tmp2, &(env->save_dir)), &r);
-	normalize(set_to(&r, &tmp2));
+	subtract(set_to(&temp, &(env->save_dir)), &r);
+	normalize(set_to(&r, &temp));
 	colour[4] = obj->reflexion;
 	i = -1;
 	colour[3] = MAX_DIST;
@@ -32,31 +32,31 @@ void	colour_reflexion(t_env *env, t_obj *obj, t_vect *n, int a)
 int		colour_specular(t_env *env, t_vect *n, t_spot *spot)
 {
 	t_vect	inv_spot;
-	double	tmp;
+	double	temp;
 
 	set_to(&inv_spot, &(spot->dir));
 	scalar_multiply(&inv_spot, -1);
-	tmp = -dot_product(&inv_spot, n);
-	if (tmp > 0)
+	temp = -dot_product(&inv_spot, n);
+	if (temp > 0)
 	{
-		tmp = pow(tmp, 64) * spot->i * 0.4;
-		env->r += tmp;
-		env->v += tmp;
-		env->b += tmp;
+		temp = pow(temp, 64) * spot->i * 0.4;
+		env->r += temp;
+		env->v += temp;
+		env->b += temp;
 	}
 	return (0);
 }
 
 int		colour_diffuse(t_env *env, t_vect *n, t_spot *spot, t_obj *obj)
 {
-	double	tmp;
+	double	temp;
 
-	tmp = dot_product(n, &(spot->dir));
-	if (tmp > 0)
+	temp = dot_product(n, &(spot->dir));
+	if (temp > 0)
 	{
-		env->r += ((double)((obj->colour >> 16) & 0xFF) / 0xFF) * spot->r * tmp;
-		env->v += ((double)((obj->colour >> 8) & 0xFF) / 0xFF) * spot->v * tmp;
-		env->b += ((double)((obj->colour >> 0) & 0xFF) / 0xFF) * spot->b * tmp;
+		env->r += ((double)((obj->colour >> 16) & 0xFF) / 0xFF) * spot->r * temp;
+		env->v += ((double)((obj->colour >> 8) & 0xFF) / 0xFF) * spot->v * temp;
+		env->b += ((double)((obj->colour >> 0) & 0xFF) / 0xFF) * spot->b * temp;
 	}
 	return (0);
 }

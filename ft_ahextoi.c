@@ -4,28 +4,28 @@
 int		ft_ahextocolour(char *ahex)
 {
 	char	*str;
-	char	*tmp;
+	char	*temp;
 	int		c;
 	int		res;
 
 	str = ft_strdup(ahex);
 	str[2] = '\0';
-	tmp = ft_convert_base(str, "0123456789ABCDEF", "0123456789");
-	c = ft_atoi(tmp);
+	temp = ft_convert_base(str, "0123456789ABCDEF", "0123456789");
+	c = ft_atoi(temp);
 	res = c << 16;
 	free(str);
-	free(tmp);
+	free(temp);
 	str = ft_strdup(ahex + 2);
 	str[2] = '\0';
-	tmp = ft_convert_base(str, "0123456789ABCDEF", "0123456789");
-	c = ft_atoi(tmp);
+	temp = ft_convert_base(str, "0123456789ABCDEF", "0123456789");
+	c = ft_atoi(temp);
 	res |= c << 8;
 	free(str);
-	free(tmp);
+	free(temp);
 	str = ft_strdup(ahex + 4);
-	tmp = ft_convert_base(str, "0123456789ABCDEF", "0123456789");
-	res |= ft_atoi(tmp);
+	temp = ft_convert_base(str, "0123456789ABCDEF", "0123456789");
+	res |= ft_atoi(temp);
 	free(str);
-	free(tmp);
+	free(temp);
 	return (res);
 }

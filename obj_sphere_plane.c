@@ -2,12 +2,12 @@
 
 int		hit_plane(t_obj *p, t_vect *r_pos, t_vect *r_dir, double *t)
 {
-	t_vect	tmp;
+	t_vect	temp;
 	double	d;
 
-	set_to(&tmp, r_pos);
-	subtract(&tmp, &(p->pos));
-	d = -(dot_product(&p->dir, &tmp) / dot_product(&p->dir, r_dir));
+	set_to(&temp, r_pos);
+	subtract(&temp, &(p->pos));
+	d = -(dot_product(&p->dir, &temp) / dot_product(&p->dir, r_dir));
 	if (d > -0.0001 && d < *t)
 	{
 		*t = d;
