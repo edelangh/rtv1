@@ -1,35 +1,35 @@
 #include "rtv1.h"
 
-void	create_ray(t_env *e, t_vect *ray, int x, int y)
+void	create_ray(t_env *env, t_vect *ray, int x, int y)
 {
 	double	xx;
 	double	yy;
 
 	xx = (2 * (x / (double)WIN_WIDTH) - 1) * (double)WIN_RATIO * ZOOM_FACTOR;
 	yy = (1 - 2 * (y / (double)WIN_HEIGHT)) * ZOOM_FACTOR;
-	ray->x = -cos(e->pitch) * sin(e->yaw)
-		+ xx * cos(e->yaw) + yy * sin(e->pitch) * sin(e->yaw);
-	ray->y = sin(e->pitch) + yy * cos(e->pitch);
-	ray->z = cos(e->pitch) * cos(e->yaw)
-		+ xx * sin(e->yaw) - yy * sin(e->pitch) * cos(e->yaw);
+	ray->x = -cos(env->pitch) * sin(env->yaw)
+		+ xx * cos(env->yaw) + yy * sin(env->pitch) * sin(env->yaw);
+	ray->y = sin(env->pitch) + yy * cos(env->pitch);
+	ray->z = cos(env->pitch) * cos(env->yaw)
+		+ xx * sin(env->yaw) - yy * sin(env->pitch) * cos(env->yaw);
 	normalize(ray);
 }
 
-void	init_spots(t_env *e, t_vect *r_pos, t_vect *r_dir)
+void	init_spots(t_env *env, t_vect *r_pos, t_vect *r_dir)
 {
 	int		i;
 
 	i = -1;
-	while (++i < e->n_spot)
+	while (++i < env->n_spot)
 	{
-		set_to(&(e->spots[i].dir), r_dir);
-		add(&(e->spots[i].dir), r_pos);
-		subtract(&(e->spots[i].dir), &(e->spots[i].pos));
-		normalize(&(e->spots[i].dir));
+		set_to(&(env->spots[i].dir), r_dir);
+		add(&(env->spots[i].dir), r_pos);
+		subtract(&(env->spots[i].dir), &(env->spots[i].pos));
+		normalize(&(env->spots[i].dir));
 	}
 }
 
-int		try_collision(t_env *e, t_vect *r_pos, int id, t_spot *spot)
+int		try_collision(t_env *env, t_vect *r_pos, int id, t_spot *spot)
 {
 	double	dist;
 	int		i;
@@ -40,16 +40,16 @@ int		try_collision(t_env *e, t_vect *r_pos, int id, t_spot *spot)
 	subtract(&a, r_pos);
 	dist = length_vec(&a);
 	normalize(&a);
-	while (e->tab_obj[++i])
+	while (env->tab_obj[++i])
 	{
-		if (e->tab_obj[i]->id != id &&
-				e->tab_obj[i]->hit(e->tab_obj[i], r_pos, &a, &dist))
+		if (env->tab_obj[i]->id != id &&
+				env->tab_obj[i]->hit(env->tab_obj[i], r_pos, &a, &dist))
 			return (1);
 	}
 	return (0);
 }
 
-int		cast_ray(t_env *e, t_vect *ray, int x, int y)
+int		cast_ray(t_env *env, t_vect *ray, int x, int y)
 {
 	double	dist;
 	int		colour;
@@ -59,36 +59,36 @@ int		cast_ray(t_env *e, t_vect *ray, int x, int y)
 	i = -1;
 	dist = MAX_DIST;
 	res = NULL;
-	while (e->tab_obj[++i])
-		if (e->tab_obj[i]->hit(e->tab_obj[i], &e->pos, ray, &dist))
-			res = e->tab_obj[i];
+	while (env->tab_obj[++i])
+		if (env->tab_obj[i]->hit(env->tab_obj[i], &env->pos, ray, &dist))
+			res = env->tab_obj[i];
 	if (dist != MAX_DIST)
 	{
-		e->r_dir = ray;
-		e->r_pos = &(e->pos);
-		colour_phong(e, res, dist, 1);
-		colour = ((int)(e->r * 0xFF) << 16) | ((int)(e->v * 0xFF) << 8)
-											| (int)(e->b * 0xFF);
-		ft_pixel_put_to_image(e->img, x, y, colour);
+		env->r_dir = ray;
+		env->r_pos = &(env->pos);
+		colour_phong(env, res, dist, 1);
+		colour = ((int)(env->r * 0xFF) << 16) | ((int)(env->v * 0xFF) << 8)
+											| (int)(env->b * 0xFF);
+		ft_pixel_put_to_image(env->img, x, y, colour);
 		return (1);
 	}
 	return (0);
 }
 
-void	raytracer(t_env *e)
+void	raytracer(t_env *env)
 {
 	int		x;
 	int		y;
 	t_vect	ray;
 
-	set_to(&(e->screen->pos), &(e->dir));
-	add(&(e->screen->pos), &(e->pos));
-	set_to(&(e->screen->dir), &(e->dir));
+	set_to(&(env->screen->pos), &(env->dir));
+	add(&(env->screen->pos), &(env->pos));
+	set_to(&(env->screen->dir), &(env->dir));
 	y = -1;
-	while (x = -1, ++y < e->img->height)
-		while (++x < e->img->width)
+	while (x = -1, ++y < env->img->height)
+		while (++x < env->img->width)
 		{
-			create_ray(e, &ray, x, y);
-			cast_ray(e, &ray, x, y);
+			create_ray(env, &ray, x, y);
+			cast_ray(env, &ray, x, y);
 		}
 }

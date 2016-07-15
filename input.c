@@ -1,47 +1,47 @@
 #include "rtv1.h"
 
-int		ft_key_input2(int key, t_env *e)
+int		ft_key_input2(int key, t_env *env)
 {
 	if (key == 53)
 		exit(0);
 	else if (key == 126)
-		e->pitch += 0.2;
+		env->pitch += 0.2;
 	else if (key == 125)
-		e->pitch -= 0.2;
+		env->pitch -= 0.2;
 	else if (key == 123)
-		e->yaw += 0.2;
+		env->yaw += 0.2;
 	else if (key == 124)
-		e->yaw -= 0.2;
+		env->yaw -= 0.2;
 	else if (key == 12)
 	{
-		e->yaw += M_PI / 2;
-		create_ray(e, &(e->dir), WIN_WIDTH / 2, WIN_HEIGHT / 2);
-		add(&(e->pos), &(e->dir)), e->yaw -= M_PI / 2;
+		env->yaw += M_PI / 2;
+		create_ray(env, &(env->dir), WIN_WIDTH / 2, WIN_HEIGHT / 2);
+		add(&(env->pos), &(env->dir)), env->yaw -= M_PI / 2;
 	}
 	else if (key == 2)
 	{
-		e->yaw -= M_PI / 2;
-		create_ray(e, &(e->dir), WIN_WIDTH / 2, WIN_HEIGHT / 2);
-		add(&(e->pos), &(e->dir)), e->yaw += M_PI / 2;
+		env->yaw -= M_PI / 2;
+		create_ray(env, &(env->dir), WIN_WIDTH / 2, WIN_HEIGHT / 2);
+		add(&(env->pos), &(env->dir)), env->yaw += M_PI / 2;
 	}
 	else
 		return (1);
 	return (0);
 }
 
-int		ft_key_input(int key, t_env *e)
+int		ft_key_input(int key, t_env *env)
 {
 	ft_dprintf(1, "key pressed : %d\n", key);
-	if (!ft_key_input2(key, e))
-		(void)e;
+	if (!ft_key_input2(key, env))
+		(void)env;
 	else if (key == 6)
 	{
-		add(&(e->pos), &(e->dir));
+		add(&(env->pos), &(env->dir));
 	}
 	else if (key == 1)
-		subtract(&(e->pos), &(e->dir));
-	create_ray(e, &(e->dir), WIN_WIDTH / 2, WIN_HEIGHT / 2);
-	raytracer(e);
-	ft_draw(e);
+		subtract(&(env->pos), &(env->dir));
+	create_ray(env, &(env->dir), WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	raytracer(env);
+	ft_draw(env);
 	return (0);
 }
