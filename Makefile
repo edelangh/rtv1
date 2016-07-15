@@ -12,7 +12,7 @@ SRCS = main.c \
 	   obj_sphere_plane.c \
 	   obj_cyl_cone.c \
 	   obj_tri_circ.c \
-	   color_phong.c \
+	   colour_phong.c \
 	   input.c \
 	   ft_ahextoi.c
 

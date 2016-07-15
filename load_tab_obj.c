@@ -82,7 +82,7 @@ void	add_obj_to_tab(t_env *e, char **tab, int i, int size[2])
 	obj->id = i;
 	obj->r = ft_atof(tab[10]);
 	obj->h = ft_atof(tab[11]);
-	obj->color = ft_ahextocolor(tab[12]);
+	obj->colour = ft_ahextocolour(tab[12]);
 	obj->reflexion = ft_atof(tab[13]);
 	select_type(tab, obj);
 	e->tab_obj[i] = obj;

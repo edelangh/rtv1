@@ -52,7 +52,7 @@ int		try_collision(t_env *e, t_vect *r_pos, int id, t_spot *spot)
 int		cast_ray(t_env *e, t_vect *ray, int x, int y)
 {
 	double	dist;
-	int		color;
+	int		colour;
 	t_obj	*res;
 	int		i;
 
@@ -66,10 +66,10 @@ int		cast_ray(t_env *e, t_vect *ray, int x, int y)
 	{
 		e->r_dir = ray;
 		e->r_pos = &(e->pos);
-		color_phong(e, res, dist, 1);
-		color = ((int)(e->r * 0xFF) << 16) | ((int)(e->v * 0xFF) << 8)
+		colour_phong(e, res, dist, 1);
+		colour = ((int)(e->r * 0xFF) << 16) | ((int)(e->v * 0xFF) << 8)
 											| (int)(e->b * 0xFF);
-		ft_pixel_put_to_image(e->img, x, y, color);
+		ft_pixel_put_to_image(e->img, x, y, colour);
 		return (1);
 	}
 	return (0);

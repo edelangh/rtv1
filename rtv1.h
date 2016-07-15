@@ -49,7 +49,7 @@ typedef struct	s_obj
 	double		r;
 	double		h;
 	double		reflexion;
-	int			color;
+	int			colour;
 	int			id;
 	int			(*hit)(struct s_obj*, t_vect*, t_vect*, double*);
 	void		(*norm)(t_vect*, struct s_obj*, t_vect*, t_vect*);
@@ -102,7 +102,7 @@ int				ft_draw(t_env *e);
 void			raytracer(t_env *e);
 void			create_ray(t_env *e, t_vect *ray, int x, int y);
 int				cast_ray(t_env *e, t_vect *ray, int x, int y);
-int				color_phong(t_env *e, t_obj *obj, double dist, int a);
+int				colour_phong(t_env *e, t_obj *obj, double dist, int a);
 int				try_collision(t_env *e, t_vect *r_pos, int id, t_spot *spot);
 void			init_spots(t_env *e, t_vect *r_pos, t_vect *r_dir);
 void			init_tab_obj(t_env *e, char *src);
@@ -114,5 +114,5 @@ int				hit_cylinder(t_obj *s, t_vect *r_pos, t_vect *r_dir, double *t);
 void			norm_cylinder(t_vect *r_pos, t_obj *o, t_vect *ray, t_vect *n);
 int				hit_triangle(t_obj *s, t_vect *r_pos, t_vect *r_dir, double *t);
 int				hit_cone(t_obj *c, t_vect *r_pos, t_vect *r_dir, double *t);
-int				ft_ahextocolor(char *ahex);
+int				ft_ahextocolour(char *ahex);
 #endif

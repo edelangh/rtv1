@@ -1,7 +1,7 @@
 #include "libft.h"
 #include <stdlib.h>
 
-int		ft_ahextocolor(char *ahex)
+int		ft_ahextocolour(char *ahex)
 {
 	char	*str;
 	char	*tmp;
