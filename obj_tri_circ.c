@@ -9,27 +9,23 @@ void	norm_cylinder(t_vect *r_pos, t_obj *obj, t_vect *ray, t_vect *n)
 
 int		hit_triangle(t_obj *m, t_vect *r_pos, t_vect *r_dir, float *out)
 {
-	t_vect	e[2];
-	t_vect	p[2];
-	float	inv;
-	float	det;
-	float	v[3];
+	t_var_tri	var;
 
-	subtract(set_to(&e[0], &(m->dir2)), &(m->dir));
-	subtract(set_to(&e[1], &(m->dir3)), &(m->dir));
-	cross_product(set_to(&p[0], r_dir), &e[1]);
+	subtract(set_to(&var.e[0], &(m->dir2)), &(m->dir));
+	subtract(set_to(&var.e[1], &(m->dir3)), &(m->dir));
+	cross_product(set_to(&var.p[0], r_dir), &var.e[1]);
 	if (ADD_LINE9)
 		return (0);
-	inv = 1.0 / det;
-	subtract(set_to(&p[1], r_pos), &(m->dir));
+	var.inv = 1.0 / var.det;
+	subtract(set_to(&var.p[1], r_pos), &(m->dir));
 	if (ADD_LINE12)
 		return (0);
-	cross_product(&p[1], &e[0]);
+	cross_product(&var.p[1], &var.e[0]);
 	if (ADD_LINE15)
 		return (0);
-	if ((v[2] = dot_product(&e[1], &p[1]) * inv) > 0.000001)
+	if ((var.v[2] = dot_product(&var.e[1], &var.p[1]) * var.inv) > 0.000001)
 	{
-		*out = v[2];
+		*out = var.v[2];
 		return (1);
 	}
 	return (0);

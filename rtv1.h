@@ -34,21 +34,21 @@
 # define ADD_LINE4 add(&(env->pos), &(env->dir)),
 # define ADD_LINE5 env->yaw += M_PI / 2
 # define ADD_LINE6 ADD_LINE4 ADD_LINE5
-# define ADD_LINE7 (det = dot_product(&e[0], &p[0])),
-# define ADD_LINE8 det > -0.000001 && det < 0.000001
+# define ADD_LINE7 (var.det = dot_product(&var.e[0], &var.p[0])),
+# define ADD_LINE8 var.det > -0.000001 && var.det < 0.000001
 # define ADD_LINE9 ADD_LINE7 ADD_LINE8
-# define ADD_LINE10 (v[0] = dot_product(&p[1], &p[0]) * inv),
-# define ADD_LINE11 v[0] < 0 || v[0] > 1
+# define ADD_LINE10 (var.v[0] = dot_product(&var.p[1], &var.p[0]) * var.inv),
+# define ADD_LINE11 var.v[0] < 0 || var.v[0] > 1
 # define ADD_LINE12 ADD_LINE10 ADD_LINE11
-# define ADD_LINE13 (v[1] = dot_product(r_dir, &p[1]) * inv),
-# define ADD_LINE14 v[1] < 0 || v[0] + v[1] > 1
+# define ADD_LINE13 (var.v[1] = dot_product(r_dir, &var.p[1]) * var.inv),
+# define ADD_LINE14 var.v[1] < 0 || var.v[0] + var.v[1] > 1
 # define ADD_LINE15 ADD_LINE13 ADD_LINE14
-# define ADD_LINE16 get_next_line(fd, &line),
-# define ADD_LINE17 tab = ft_strsplit(line, ' ')
+# define ADD_LINE16 get_next_line(var.fd, &var.line),
+# define ADD_LINE17 var.tab = ft_strsplit(var.line, ' ')
 # define ADD_LINE18 ADD_LINE16 ADD_LINE17
-# define ADD_LINE19 (tab = ft_strsplit(line, ' ')),
-# define ADD_LINE20 tab && tab[0] && tab[0][0] != '#'
-# define ADD_IF01 k = -1, !size[0] || !size[1]
+# define ADD_LINE19 (var.tab = ft_strsplit(var.line, ' ')),
+# define ADD_LINE20 var.tab && var.tab[0] && var.tab[0][0] != '#'
+# define ADD_IF01 var.k = -1, !var.size[0] || !var.size[1]
 # define ADD_IF02 ADD_LINE19 ADD_LINE20
 # define ADD_IF03 x = -1, ++y < env->img->height
 
@@ -119,6 +119,43 @@ typedef struct	s_hit_equa
 	float		c;
 	float		ab2;
 }				t_hit_equa;
+
+typedef struct	s_col_var
+{
+	t_vect		r;
+	t_vect		temp;
+	float		colour[5];
+	int			k;
+	t_obj		*res;
+}				t_col_var;
+
+typedef struct	s_tab_var
+{
+	int			k;
+	int			fd;
+	char		*line;
+	char		**tab;
+	int			size[2];
+}				t_tab_var;
+
+typedef struct	s_var_shp
+{
+	t_vect		dist;
+	float		b;
+	float		d;
+	float		k[2];
+	int			ret;
+}				t_var_sph;
+
+typedef struct	s_var_tri
+{
+	t_vect		e[2];
+	t_vect		p[2];
+	float		inv;
+	float		det;
+	float		v[3];
+}				t_var_tri;
+
 
 int				ft_key_input(int key, t_env *e);
 int				ft_draw(t_env *e);

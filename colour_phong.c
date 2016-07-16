@@ -2,31 +2,27 @@
 
 void	colour_reflexion(t_env *env, t_obj *obj, t_vect *n, int a)
 {
-	t_vect	r;
-	t_vect	temp;
-	float	colour[5];
-	int		k;
-	t_obj	*res;
+	t_col_var	var;
 
-	scalar_multiply(set_to(&r, n), dot_product(n, &(env->save_dir)) * 2);
-	subtract(set_to(&temp, &(env->save_dir)), &r);
-	normalize(set_to(&r, &temp));
-	colour[4] = obj->reflexion;
-	k = -1;
-	colour[3] = MAX_DIST;
-	res = NULL;
-	while (env->tab_obj[++k])
-		if (k != obj->id && env->tab_obj[k]->hit(env->tab_obj[k],
-				env->r_dir, &r, &(colour[3])))
-			res = env->tab_obj[k];
-	ft_memcpy(colour, &(env->r), sizeof(float) * 3);
+	scalar_multiply(set_to(&var.r, n), dot_product(n, &(env->save_dir)) * 2);
+	subtract(set_to(&var.temp, &(env->save_dir)), &var.r);
+	normalize(set_to(&var.r, &var.temp));
+	var.colour[4] = obj->reflexion;
+	var.k = -1;
+	var.colour[3] = MAX_DIST;
+	var.res = NULL;
+	while (env->tab_obj[++var.k])
+		if (var.k != obj->id && env->tab_obj[var.k]->hit(env->tab_obj[var.k],
+				env->r_dir, &var.r, &(var.colour[3])))
+			var.res = env->tab_obj[var.k];
+	ft_memcpy(var.colour, &(env->r), sizeof(float) * 3);
 	env->r_pos = env->r_dir;
-	env->r_dir = &r;
-	if (colour[3] != MAX_DIST)
-		colour_phong(env, res, colour[3], a - 1);
-	env->r = colour[0] * (1 - colour[4]) + (env->r * colour[4]);
-	env->v = colour[1] * (1 - colour[4]) + (env->v * colour[4]);
-	env->b = colour[2] * (1 - colour[4]) + (env->b * colour[4]);
+	env->r_dir = &var.r;
+	if (var.colour[3] != MAX_DIST)
+		colour_phong(env, var.res, var.colour[3], a - 1);
+	env->r = var.colour[0] * (1 - var.colour[4]) + (env->r * var.colour[4]);
+	env->v = var.colour[1] * (1 - var.colour[4]) + (env->v * var.colour[4]);
+	env->b = var.colour[2] * (1 - var.colour[4]) + (env->b * var.colour[4]);
 }
 
 int		colour_specular(t_env *env, t_vect *n, t_spot *spot)

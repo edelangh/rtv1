@@ -18,31 +18,28 @@ int		hit_plane(t_obj *p, t_vect *r_pos, t_vect *r_dir, float *t)
 
 int		hit_sphere(t_obj *s, t_vect *r_pos, t_vect *r_dir, float *t)
 {
-	t_vect	dist;
-	float	b;
-	float	d;
-	float	k[2];
-	int		ret;
+	t_var_sph	var;
 
-	ret = 0;
-	subtract(set_to(&dist, &s->pos), r_pos);
-	b = dot_product(r_dir, &dist);
-	d = (b * b) - dot_product(&dist, &dist) + (s->r * s->r);
-	if (d < 0.0f)
+	var.ret = 0;
+	subtract(set_to(&var.dist, &s->pos), r_pos);
+	var.b = dot_product(r_dir, &var.dist);
+	var.d = (var.b * var.b) - dot_product(&var.dist, &var.dist)
+		+ (s->r * s->r);
+	if (var.d < 0.0f)
 		return (0);
-	k[0] = b - sqrtf(d);
-	k[1] = b + sqrtf(d);
-	if ((k[0] > 0.1f) && (k[0] < *t))
+	var.k[0] = var.b - sqrtf(var.d);
+	var.k[1] = var.b + sqrtf(var.d);
+	if ((var.k[0] > 0.1f) && (var.k[0] < *t))
 	{
-		*t = k[0];
-		ret = 1;
+		*t = var.k[0];
+		var.ret = 1;
 	}
-	if ((k[1] > 0.1) && (k[1] < *t))
+	if ((var.k[1] > 0.1) && (var.k[1] < *t))
 	{
-		*t = k[1];
-		ret = 1;
+		*t = var.k[1];
+		var.ret = 1;
 	}
-	return (ret);
+	return (var.ret);
 }
 
 void	norm_plane(t_vect *r_pos, t_obj *obj, t_vect *ray, t_vect *n)

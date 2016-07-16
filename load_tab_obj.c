@@ -90,29 +90,25 @@ void	add_obj_to_tab(t_env *env, char **tab, int k, int size[2])
 
 void	init_tab_obj(t_env *env, char *src)
 {
-	int		k;
-	int		fd;
-	char	*line;
-	char	**tab;
-	int		size[2];
+	t_tab_var var;
 
-	line = NULL;
-	if ((fd = open(src, O_RDONLY)) <= 0)
+	var.line = NULL;
+	if ((var.fd = open(src, O_RDONLY)) <= 0)
 		exit(ft_dprintf(2, "{red}error can't open file\n{eoc}"));
 	ADD_LINE18;
-	size[0] = ft_atoi(tab[0]);
-	size[1] = ft_atoi(tab[1]);
+	var.size[0] = ft_atoi(var.tab[0]);
+	var.size[1] = ft_atoi(var.tab[1]);
 	if (ADD_IF01)
 		exit(ft_dprintf(2, "{red}error can't read sizes of file\n{eoc}"));
-	env->tab_obj = ft_memalloc(sizeof(t_obj*) * (size[0] + 1));
-	env->spots = ft_memalloc(sizeof(t_spot) * (size[1] + 1));
-	while (get_next_line(fd, &line) > 0)
+	env->tab_obj = ft_memalloc(sizeof(t_obj*) * (var.size[0] + 1));
+	env->spots = ft_memalloc(sizeof(t_spot) * (var.size[1] + 1));
+	while (get_next_line(var.fd, &var.line) > 0)
 	{
 		if (ADD_IF02)
-			add_obj_to_tab(env, tab, ++k, size);
-		if (k > size[0])
+			add_obj_to_tab(env, var.tab, ++var.k, var.size);
+		if (var.k > var.size[0])
 			exit(ft_dprintf(2, "{red}error too many objs\n{eoc}"));
-		ft_freetab(tab);
-		free(line);
+		ft_freetab(var.tab);
+		free(var.line);
 	}
 }
