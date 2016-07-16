@@ -131,14 +131,22 @@ SRCS = ft_atoi.c \
 	   v3d_calc2.c \
 	   v3d_calc3.c
 
+define colorecho
+      @tput setaf 4
+      @echo $1
+      @tput sgr0
+endef
+
 HEADER = libft.h
 OBJS = $(addprefix $(OBJDIR),$(subst .c,.o,$(SRCS)))
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(INCLUDES)
-	ar r $@ $(OBJS)
-	ranlib $@
+	@$(call colorecho, "Compiling libft")
+	@ar r $@ $(OBJS)
+	@ranlib $@
+	@$(call colorecho, "Done Compiling libft")
 
 printf/libftprintf.a:
 	make -C printf
@@ -154,11 +162,14 @@ $(OBJDIR):
 		fi
 
 clean:
-	rm -rf $(OBJS)
-	rm -rf $(OBJDIR)
+	@$(call colorecho, "Cleaning libft objects")
+	@rm -rf $(OBJS)
+	@rm -rf $(OBJDIR)
+	@$(call colorecho, "Done Cleaning libft objects")
 
 fclean: clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
+	@$(call colorecho, "Removed libft.a")
 
 proper: all clean
 
