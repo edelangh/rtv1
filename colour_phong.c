@@ -5,20 +5,20 @@ void	colour_reflexion(t_env *env, t_obj *obj, t_vect *n, int a)
 	t_vect	r;
 	t_vect	temp;
 	double	colour[5];
-	int		i;
+	int		k;
 	t_obj	*res;
 
 	scalar_multiply(set_to(&r, n), dot_product(n, &(env->save_dir)) * 2);
 	subtract(set_to(&temp, &(env->save_dir)), &r);
 	normalize(set_to(&r, &temp));
 	colour[4] = obj->reflexion;
-	i = -1;
+	k = -1;
 	colour[3] = MAX_DIST;
 	res = NULL;
-	while (env->tab_obj[++i])
-		if (i != obj->id &&
-				env->tab_obj[i]->hit(env->tab_obj[i], env->r_dir, &r, &(colour[3])))
-			res = env->tab_obj[i];
+	while (env->tab_obj[++k])
+		if (k != obj->id &&
+				env->tab_obj[k]->hit(env->tab_obj[k], env->r_dir, &r, &(colour[3])))
+			res = env->tab_obj[k];
 	ft_memcpy(colour, &(env->r), sizeof(double) * 3);
 	env->r_pos = env->r_dir;
 	env->r_dir = &r;
@@ -63,17 +63,17 @@ int		colour_diffuse(t_env *env, t_vect *n, t_spot *spot, t_obj *obj)
 
 int		colour_phong2(t_env *env, t_obj *obj, t_vect *n, int a)
 {
-	int		i;
+	int		k;
 	t_vect	intersection;
 
-	i = -1;
-	while (++i < env->n_spot)
+	k = -1;
+	while (++k < env->n_spot)
 	{
 		add(set_to(&intersection, env->r_pos), env->r_dir);
-		if (!try_collision(env, &intersection, obj->id, &(env->spots[i])))
+		if (!try_collision(env, &intersection, obj->id, &(env->spots[k])))
 		{
-			colour_diffuse(env, n, &(env->spots[i]), obj);
-			colour_specular(env, n, &(env->spots[i]));
+			colour_diffuse(env, n, &(env->spots[k]), obj);
+			colour_specular(env, n, &(env->spots[k]));
 		}
 	}
 	if (a && obj->reflexion)

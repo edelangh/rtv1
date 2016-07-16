@@ -17,33 +17,33 @@ void	create_ray(t_env *env, t_vect *ray, int x, int y)
 
 void	init_spots(t_env *env, t_vect *r_pos, t_vect *r_dir)
 {
-	int		i;
+	int		k;
 
-	i = -1;
-	while (++i < env->n_spot)
+	k = -1;
+	while (++k < env->n_spot)
 	{
-		set_to(&(env->spots[i].dir), r_dir);
-		add(&(env->spots[i].dir), r_pos);
-		subtract(&(env->spots[i].dir), &(env->spots[i].pos));
-		normalize(&(env->spots[i].dir));
+		set_to(&(env->spots[k].dir), r_dir);
+		add(&(env->spots[k].dir), r_pos);
+		subtract(&(env->spots[k].dir), &(env->spots[k].pos));
+		normalize(&(env->spots[k].dir));
 	}
 }
 
 int		try_collision(t_env *env, t_vect *r_pos, int id, t_spot *spot)
 {
 	double	dist;
-	int		i;
+	int		k;
 	t_vect	a;
 
-	i = -1;
+	k = -1;
 	set_to(&a, &(spot->pos));
 	subtract(&a, r_pos);
 	dist = length_vec(&a);
 	normalize(&a);
-	while (env->tab_obj[++i])
+	while (env->tab_obj[++k])
 	{
-		if (env->tab_obj[i]->id != id &&
-				env->tab_obj[i]->hit(env->tab_obj[i], r_pos, &a, &dist))
+		if (env->tab_obj[k]->id != id &&
+				env->tab_obj[k]->hit(env->tab_obj[k], r_pos, &a, &dist))
 			return (1);
 	}
 	return (0);
@@ -54,14 +54,14 @@ int		cast_ray(t_env *env, t_vect *ray, int x, int y)
 	double	dist;
 	int		colour;
 	t_obj	*res;
-	int		i;
+	int		k;
 
-	i = -1;
+	k = -1;
 	dist = MAX_DIST;
 	res = NULL;
-	while (env->tab_obj[++i])
-		if (env->tab_obj[i]->hit(env->tab_obj[i], &env->pos, ray, &dist))
-			res = env->tab_obj[i];
+	while (env->tab_obj[++k])
+		if (env->tab_obj[k]->hit(env->tab_obj[k], &env->pos, ray, &dist))
+			res = env->tab_obj[k];
 	if (dist != MAX_DIST)
 	{
 		env->r_dir = ray;

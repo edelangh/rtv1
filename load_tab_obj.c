@@ -3,18 +3,18 @@
 
 void	add_spot(t_env *env, char **tab, int size[2])
 {
-	int	i;
+	int	k;
 
 	if (ft_tablen((void**)tab) < 7)
 		exit(ft_dprintf(2, "error :Not enouth info for spot"));
-	i = env->n_spot;
-	env->spots[i].pos.x = ft_atof(tab[1]);
-	env->spots[i].pos.y = ft_atof(tab[2]);
-	env->spots[i].pos.z = ft_atof(tab[3]);
-	env->spots[i].r = ft_atof(tab[4]);
-	env->spots[i].v = ft_atof(tab[5]);
-	env->spots[i].b = ft_atof(tab[6]);
-	env->spots[i].i = ft_atof(tab[7]);
+	k = env->n_spot;
+	env->spots[k].pos.x = ft_atof(tab[1]);
+	env->spots[k].pos.y = ft_atof(tab[2]);
+	env->spots[k].pos.z = ft_atof(tab[3]);
+	env->spots[k].r = ft_atof(tab[4]);
+	env->spots[k].v = ft_atof(tab[5]);
+	env->spots[k].b = ft_atof(tab[6]);
+	env->spots[k].i = ft_atof(tab[7]);
 	env->n_spot++;
 	if (env->n_spot > size[1])
 		exit(ft_dprintf(2, "error :Too many spots !\n"));
@@ -61,7 +61,7 @@ void	select_type(char **tab, t_obj *obj)
 	}
 }
 
-void	add_obj_to_tab(t_env *env, char **tab, int i, int size[2])
+void	add_obj_to_tab(t_env *env, char **tab, int k, int size[2])
 {
 	t_obj	*obj;
 
@@ -79,18 +79,18 @@ void	add_obj_to_tab(t_env *env, char **tab, int i, int size[2])
 	obj->dir.x = ft_atof(tab[4]);
 	obj->dir.y = ft_atof(tab[5]);
 	obj->dir.z = ft_atof(tab[6]);
-	obj->id = i;
+	obj->id = k;
 	obj->r = ft_atof(tab[10]);
 	obj->h = ft_atof(tab[11]);
 	obj->colour = ft_ahextocolour(tab[12]);
 	obj->reflexion = ft_atof(tab[13]);
 	select_type(tab, obj);
-	env->tab_obj[i] = obj;
+	env->tab_obj[k] = obj;
 }
 
 void	init_tab_obj(t_env *env, char *src)
 {
-	int		i;
+	int		k;
 	int		fd;
 	char	*line;
 	char	**tab;
@@ -102,15 +102,15 @@ void	init_tab_obj(t_env *env, char *src)
 	get_next_line(fd, &line), tab = ft_strsplit(line, ' ');
 	size[0] = ft_atoi(tab[0]);
 	size[1] = ft_atoi(tab[1]);
-	if (i = -1, !size[0] || !size[1])
+	if (k = -1, !size[0] || !size[1])
 		exit(ft_dprintf(2, "{red}error can't read sizes of file\n{eoc}"));
 	env->tab_obj = ft_memalloc(sizeof(t_obj*) * (size[0] + 1));
 	env->spots = ft_memalloc(sizeof(t_spot) * (size[1] + 1));
 	while (get_next_line(fd, &line) > 0)
 	{
 		if ((tab = ft_strsplit(line, ' ')), tab && tab[0] && tab[0][0] != '#')
-			add_obj_to_tab(env, tab, ++i, size);
-		if (i > size[0])
+			add_obj_to_tab(env, tab, ++k, size);
+		if (k > size[0])
 			exit(ft_dprintf(2, "{red}error too many objs\n{eoc}"));
 		ft_freetab(tab);
 		free(line);

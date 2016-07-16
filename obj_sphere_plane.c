@@ -21,7 +21,7 @@ int		hit_sphere(t_obj *s, t_vect *r_pos, t_vect *r_dir, double *t)
 	t_vect	dist;
 	double	b;
 	double	d;
-	double	i[2];
+	double	k[2];
 	int		ret;
 
 	ret = 0;
@@ -30,16 +30,16 @@ int		hit_sphere(t_obj *s, t_vect *r_pos, t_vect *r_dir, double *t)
 	d = (b * b) - dot_product(&dist, &dist) + (s->r * s->r);
 	if (d < 0.0f)
 		return (0);
-	i[0] = b - sqrtf(d);
-	i[1] = b + sqrtf(d);
-	if ((i[0] > 0.1f) && (i[0] < *t))
+	k[0] = b - sqrtf(d);
+	k[1] = b + sqrtf(d);
+	if ((k[0] > 0.1f) && (k[0] < *t))
 	{
-		*t = i[0];
+		*t = k[0];
 		ret = 1;
 	}
-	if ((i[1] > 0.1) && (i[1] < *t))
+	if ((k[1] > 0.1) && (k[1] < *t))
 	{
-		*t = i[1];
+		*t = k[1];
 		ret = 1;
 	}
 	return (ret);
