@@ -6,7 +6,7 @@ void	add_spot(t_env *env, char **tab, int size[2])
 	int	k;
 
 	if (ft_tablen((void**)tab) < 7)
-		exit(ft_dprintf(2, "error :Not enouth info for spot"));
+		ft_exit(1);
 	k = env->n_spot;
 	env->spots[k].pos.x = ft_atof(tab[1]);
 	env->spots[k].pos.y = ft_atof(tab[2]);
@@ -17,7 +17,7 @@ void	add_spot(t_env *env, char **tab, int size[2])
 	env->spots[k].i = ft_atof(tab[7]);
 	env->n_spot++;
 	if (env->n_spot > size[1])
-		exit(ft_dprintf(2, "error :Too many spots !\n"));
+		ft_exit(2);
 }
 
 void	set_obj_triangle(t_obj *obj, char **tab)
@@ -71,7 +71,7 @@ void	add_obj_to_tab(t_env *env, char **tab, int k, int size[2])
 		return ;
 	}
 	if (!tab || ft_tablen((void**)tab) < 13)
-		exit(ft_dprintf(2, "{red}error invalide elem in file{eoc}\n"));
+		ft_exit(3);
 	obj = ft_memalloc(sizeof(t_obj));
 	obj->pos.x = ft_atof(tab[1]);
 	obj->pos.y = ft_atof(tab[2]);
@@ -94,12 +94,12 @@ void	init_tab_obj(t_env *env, char *src)
 
 	var.line = NULL;
 	if ((var.fd = open(src, O_RDONLY)) <= 0)
-		exit(ft_dprintf(2, "{red}error can't open file\n{eoc}"));
+		ft_exit(4);
 	ADD_LINE18;
 	var.size[0] = ft_atoi(var.tab[0]);
 	var.size[1] = ft_atoi(var.tab[1]);
 	if (ADD_IF01)
-		exit(ft_dprintf(2, "{red}error can't read sizes of file\n{eoc}"));
+		ft_exit(5);
 	env->tab_obj = ft_memalloc(sizeof(t_obj*) * (var.size[0] + 1));
 	env->spots = ft_memalloc(sizeof(t_spot) * (var.size[1] + 1));
 	while (get_next_line(var.fd, &var.line) > 0)
@@ -107,7 +107,7 @@ void	init_tab_obj(t_env *env, char *src)
 		if (ADD_IF02)
 			add_obj_to_tab(env, var.tab, ++var.k, var.size);
 		if (var.k > var.size[0])
-			exit(ft_dprintf(2, "{red}error too many objs\n{eoc}"));
+			ft_exit(6);
 		ft_freetab(var.tab);
 		free(var.line);
 	}

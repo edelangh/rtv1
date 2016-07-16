@@ -14,7 +14,8 @@ SRCS = main.c \
 	   obj_tri_circ.c \
 	   colour_phong.c \
 	   input.c \
-	   ft_ahextoi.c
+	   ft_ahextoi.c \
+	   exit.c \
 
 HEADER = $(NAME).h
 OBJS = $(addprefix $(OBJDIR),$(subst .c,.o,$(SRCS)))

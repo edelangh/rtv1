@@ -3,7 +3,6 @@
 
 # include "libft.h"
 # include "ft_mlx.h"
-# include "ft_printf.h"
 # include "v3d_lib.h"
 # include "get_next_line.h"
 
@@ -176,4 +175,7 @@ void			norm_cylinder(t_vect *r_pos, t_obj *o, t_vect *ray, t_vect *n);
 int				hit_triangle(t_obj *s, t_vect *r_pos, t_vect *r_dir, float *t);
 int				hit_cone(t_obj *c, t_vect *r_pos, t_vect *r_dir, float *t);
 int				ft_ahextocolour(char *ahex);
+
+void			ft_exit(int error);
+
 #endif

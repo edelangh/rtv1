@@ -21,7 +21,7 @@ int		button_pess(int button, int x, int y, t_env *env)
 void	init_env(t_env *env, int ac, char **av)
 {
 	if (ac < 2)
-		exit(ft_dprintf(2, "usage : %s <map>\n", av[0]));
+		ft_exit(7);
 	env->ac = ac;
 	env->av = av;
 	env->img = ft_new_img(env->mlx, WIN_WIDTH, WIN_HEIGHT);
@@ -53,6 +53,6 @@ int		main(int ac, char **av)
 			mlx_loop(env.mlx);
 		}
 	if (!env.mlx || !env.win)
-		ft_dprintf(2, "%s:mlx init error\n", (ac ? av[0] : NULL));
+		ft_exit(8);
 	return (0);
 }

@@ -31,7 +31,6 @@ int		ft_key_input2(int key, t_env *env)
 
 int		ft_key_input(int key, t_env *env)
 {
-	ft_dprintf(1, "key pressed : %d\n", key);
 	if (!ft_key_input2(key, env))
 		(void)env;
 	else if (key == 6)
