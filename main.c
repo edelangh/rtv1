@@ -42,11 +42,13 @@ int		main(int ac, char **av)
 
 	ft_bzero(&env, sizeof(t_env));
 	if ((env.mlx = mlx_init()))
-		if ((env.win = mlx_new_window(env.mlx, WIN_WIDTH, WIN_HEIGHT, WIN_NAME)))
+		if ((env.win = mlx_new_window(env.mlx, WIN_WIDTH,
+			WIN_HEIGHT, WIN_NAME)))
 		{
 			init_env(&env, ac, av);
 			mlx_hook(env.win, KEY_PRESS, KEY_PRESS_MASK, ft_key_input, &env);
-			mlx_hook(env.win, BUTTON_PRESS, BUTTON_PRESS_MASK, button_pess, &env);
+			mlx_hook(env.win, BUTTON_PRESS, BUTTON_PRESS_MASK,
+				button_pess, &env);
 			mlx_expose_hook(env.win, ft_draw, &env);
 			mlx_loop(env.mlx);
 		}

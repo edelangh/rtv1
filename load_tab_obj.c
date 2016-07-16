@@ -99,16 +99,16 @@ void	init_tab_obj(t_env *env, char *src)
 	line = NULL;
 	if ((fd = open(src, O_RDONLY)) <= 0)
 		exit(ft_dprintf(2, "{red}error can't open file\n{eoc}"));
-	get_next_line(fd, &line), tab = ft_strsplit(line, ' ');
+	ADD_LINE18;
 	size[0] = ft_atoi(tab[0]);
 	size[1] = ft_atoi(tab[1]);
-	if (k = -1, !size[0] || !size[1])
+	if (ADD_IF01)
 		exit(ft_dprintf(2, "{red}error can't read sizes of file\n{eoc}"));
 	env->tab_obj = ft_memalloc(sizeof(t_obj*) * (size[0] + 1));
 	env->spots = ft_memalloc(sizeof(t_spot) * (size[1] + 1));
 	while (get_next_line(fd, &line) > 0)
 	{
-		if ((tab = ft_strsplit(line, ' ')), tab && tab[0] && tab[0][0] != '#')
+		if (ADD_IF02)
 			add_obj_to_tab(env, tab, ++k, size);
 		if (k > size[0])
 			exit(ft_dprintf(2, "{red}error too many objs\n{eoc}"));

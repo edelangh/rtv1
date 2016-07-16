@@ -28,6 +28,30 @@
 # define ZOOM_FACTOR_CALC tan(M_PI * 0.5 * 45.0 / 180)
 # define ZOOM_FACTOR 0.39269908
 
+# define ADD_LINE1 add(&(env->pos), &(env->dir)),
+# define ADD_LINE2	env->yaw -= M_PI / 2
+# define ADD_LINE3 ADD_LINE1 ADD_LINE2
+# define ADD_LINE4 add(&(env->pos), &(env->dir)),
+# define ADD_LINE5 env->yaw += M_PI / 2
+# define ADD_LINE6 ADD_LINE4 ADD_LINE5
+# define ADD_LINE7 (det = dot_product(&e[0], &p[0])),
+# define ADD_LINE8 det > -0.000001 && det < 0.000001
+# define ADD_LINE9 ADD_LINE7 ADD_LINE8
+# define ADD_LINE10 (v[0] = dot_product(&p[1], &p[0]) * inv),
+# define ADD_LINE11 v[0] < 0 || v[0] > 1
+# define ADD_LINE12 ADD_LINE10 ADD_LINE11
+# define ADD_LINE13 (v[1] = dot_product(r_dir, &p[1]) * inv),
+# define ADD_LINE14 v[1] < 0 || v[0] + v[1] > 1
+# define ADD_LINE15 ADD_LINE13 ADD_LINE14
+# define ADD_LINE16 get_next_line(fd, &line),
+# define ADD_LINE17 tab = ft_strsplit(line, ' ')
+# define ADD_LINE18 ADD_LINE16 ADD_LINE17
+# define ADD_LINE19 (tab = ft_strsplit(line, ' ')),
+# define ADD_LINE20 tab && tab[0] && tab[0][0] != '#'
+# define ADD_IF01 k = -1, !size[0] || !size[1]
+# define ADD_IF02 ADD_LINE19 ADD_LINE20
+# define ADD_IF03 x = -1, ++y < env->img->height
+
 typedef struct	s_spot
 {
 	t_vect		pos;

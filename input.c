@@ -16,13 +16,13 @@ int		ft_key_input2(int key, t_env *env)
 	{
 		env->yaw += M_PI / 2;
 		create_ray(env, &(env->dir), WIN_WIDTH / 2, WIN_HEIGHT / 2);
-		add(&(env->pos), &(env->dir)), env->yaw -= M_PI / 2;
+		ADD_LINE3;
 	}
 	else if (key == 2)
 	{
 		env->yaw -= M_PI / 2;
 		create_ray(env, &(env->dir), WIN_WIDTH / 2, WIN_HEIGHT / 2);
-		add(&(env->pos), &(env->dir)), env->yaw += M_PI / 2;
+		ADD_LINE6;
 	}
 	else
 		return (1);

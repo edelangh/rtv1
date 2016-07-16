@@ -85,7 +85,7 @@ void	raytracer(t_env *env)
 	add(&(env->screen->pos), &(env->pos));
 	set_to(&(env->screen->dir), &(env->dir));
 	y = -1;
-	while (x = -1, ++y < env->img->height)
+	while (ADD_IF03)
 		while (++x < env->img->width)
 		{
 			create_ray(env, &ray, x, y);

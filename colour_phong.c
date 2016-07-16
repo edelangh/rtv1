@@ -16,8 +16,8 @@ void	colour_reflexion(t_env *env, t_obj *obj, t_vect *n, int a)
 	colour[3] = MAX_DIST;
 	res = NULL;
 	while (env->tab_obj[++k])
-		if (k != obj->id &&
-				env->tab_obj[k]->hit(env->tab_obj[k], env->r_dir, &r, &(colour[3])))
+		if (k != obj->id && env->tab_obj[k]->hit(env->tab_obj[k],
+				env->r_dir, &r, &(colour[3])))
 			res = env->tab_obj[k];
 	ft_memcpy(colour, &(env->r), sizeof(double) * 3);
 	env->r_pos = env->r_dir;
@@ -54,7 +54,8 @@ int		colour_diffuse(t_env *env, t_vect *n, t_spot *spot, t_obj *obj)
 	temp = dot_product(n, &(spot->dir));
 	if (temp > 0)
 	{
-		env->r += ((double)((obj->colour >> 16) & 0xFF) / 0xFF) * spot->r * temp;
+		env->r += ((double)((obj->colour >> 16) & 0xFF) / 0xFF) *
+			spot->r * temp;
 		env->v += ((double)((obj->colour >> 8) & 0xFF) / 0xFF) * spot->v * temp;
 		env->b += ((double)((obj->colour >> 0) & 0xFF) / 0xFF) * spot->b * temp;
 	}
