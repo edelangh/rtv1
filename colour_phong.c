@@ -4,7 +4,7 @@ void	colour_reflexion(t_env *env, t_obj *obj, t_vect *n, int a)
 {
 	t_vect	r;
 	t_vect	temp;
-	double	colour[5];
+	float	colour[5];
 	int		k;
 	t_obj	*res;
 
@@ -19,7 +19,7 @@ void	colour_reflexion(t_env *env, t_obj *obj, t_vect *n, int a)
 		if (k != obj->id && env->tab_obj[k]->hit(env->tab_obj[k],
 				env->r_dir, &r, &(colour[3])))
 			res = env->tab_obj[k];
-	ft_memcpy(colour, &(env->r), sizeof(double) * 3);
+	ft_memcpy(colour, &(env->r), sizeof(float) * 3);
 	env->r_pos = env->r_dir;
 	env->r_dir = &r;
 	if (colour[3] != MAX_DIST)
@@ -32,7 +32,7 @@ void	colour_reflexion(t_env *env, t_obj *obj, t_vect *n, int a)
 int		colour_specular(t_env *env, t_vect *n, t_spot *spot)
 {
 	t_vect	inv_spot;
-	double	temp;
+	float	temp;
 
 	set_to(&inv_spot, &(spot->dir));
 	scalar_multiply(&inv_spot, -1);
@@ -49,15 +49,15 @@ int		colour_specular(t_env *env, t_vect *n, t_spot *spot)
 
 int		colour_diffuse(t_env *env, t_vect *n, t_spot *spot, t_obj *obj)
 {
-	double	temp;
+	float	temp;
 
 	temp = dot_product(n, &(spot->dir));
 	if (temp > 0)
 	{
-		env->r += ((double)((obj->colour >> 16) & 0xFF) / 0xFF) *
+		env->r += ((float)((obj->colour >> 16) & 0xFF) / 0xFF) *
 			spot->r * temp;
-		env->v += ((double)((obj->colour >> 8) & 0xFF) / 0xFF) * spot->v * temp;
-		env->b += ((double)((obj->colour >> 0) & 0xFF) / 0xFF) * spot->b * temp;
+		env->v += ((float)((obj->colour >> 8) & 0xFF) / 0xFF) * spot->v * temp;
+		env->b += ((float)((obj->colour >> 0) & 0xFF) / 0xFF) * spot->b * temp;
 	}
 	return (0);
 }
@@ -88,7 +88,7 @@ int		colour_phong2(t_env *env, t_obj *obj, t_vect *n, int a)
 	return (0);
 }
 
-int		colour_phong(t_env *env, t_obj *obj, double dist, int a)
+int		colour_phong(t_env *env, t_obj *obj, float dist, int a)
 {
 	t_vect	n;
 	t_vect	*ray;
@@ -97,9 +97,9 @@ int		colour_phong(t_env *env, t_obj *obj, double dist, int a)
 	ray = env->r_dir;
 	set_to(&(env->save_dir), ray);
 	r_pos = env->r_pos;
-	env->r = ((double)((obj->colour >> 16) & 0xFF) / 0xFF) * 0.1;
-	env->v = ((double)((obj->colour >> 8) & 0xFF) / 0xFF) * 0.1;
-	env->b = ((double)((obj->colour >> 0) & 0xFF) / 0xFF) * 0.1;
+	env->r = ((float)((obj->colour >> 16) & 0xFF) / 0xFF) * 0.1;
+	env->v = ((float)((obj->colour >> 8) & 0xFF) / 0xFF) * 0.1;
+	env->b = ((float)((obj->colour >> 0) & 0xFF) / 0xFF) * 0.1;
 	scalar_multiply(ray, dist);
 	init_spots(env, r_pos, ray);
 	obj->norm(&(env->pos), obj, ray, &n);

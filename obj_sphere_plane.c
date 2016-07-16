@@ -1,9 +1,9 @@
 #include "rtv1.h"
 
-int		hit_plane(t_obj *p, t_vect *r_pos, t_vect *r_dir, double *t)
+int		hit_plane(t_obj *p, t_vect *r_pos, t_vect *r_dir, float *t)
 {
 	t_vect	temp;
-	double	d;
+	float	d;
 
 	set_to(&temp, r_pos);
 	subtract(&temp, &(p->pos));
@@ -16,12 +16,12 @@ int		hit_plane(t_obj *p, t_vect *r_pos, t_vect *r_dir, double *t)
 	return (0);
 }
 
-int		hit_sphere(t_obj *s, t_vect *r_pos, t_vect *r_dir, double *t)
+int		hit_sphere(t_obj *s, t_vect *r_pos, t_vect *r_dir, float *t)
 {
 	t_vect	dist;
-	double	b;
-	double	d;
-	double	k[2];
+	float	b;
+	float	d;
+	float	k[2];
 	int		ret;
 
 	ret = 0;

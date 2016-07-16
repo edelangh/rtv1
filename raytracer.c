@@ -2,11 +2,11 @@
 
 void	create_ray(t_env *env, t_vect *ray, int x, int y)
 {
-	double	xx;
-	double	yy;
+	float	xx;
+	float	yy;
 
-	xx = (2 * (x / (double)WIN_WIDTH) - 1) * (double)WIN_RATIO * ZOOM_FACTOR;
-	yy = (1 - 2 * (y / (double)WIN_HEIGHT)) * ZOOM_FACTOR;
+	xx = (2 * (x / (float)WIN_WIDTH) - 1) * (float)WIN_RATIO * ZOOM_FACTOR;
+	yy = (1 - 2 * (y / (float)WIN_HEIGHT)) * ZOOM_FACTOR;
 	ray->x = -cos(env->pitch) * sin(env->yaw)
 		+ xx * cos(env->yaw) + yy * sin(env->pitch) * sin(env->yaw);
 	ray->y = sin(env->pitch) + yy * cos(env->pitch);
@@ -31,7 +31,7 @@ void	init_spots(t_env *env, t_vect *r_pos, t_vect *r_dir)
 
 int		try_collision(t_env *env, t_vect *r_pos, int id, t_spot *spot)
 {
-	double	dist;
+	float	dist;
 	int		k;
 	t_vect	a;
 
@@ -51,7 +51,7 @@ int		try_collision(t_env *env, t_vect *r_pos, int id, t_spot *spot)
 
 int		cast_ray(t_env *env, t_vect *ray, int x, int y)
 {
-	double	dist;
+	float	dist;
 	int		colour;
 	t_obj	*res;
 	int		k;

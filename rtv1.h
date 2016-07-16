@@ -16,7 +16,7 @@
 # define WIN_HEIGHT 480
 # define WIN_NAME "rtv1"
 
-# define WIN_RATIO ((double)WIN_WIDTH / WIN_HEIGHT)
+# define WIN_RATIO ((float)WIN_WIDTH / WIN_HEIGHT)
 # define FOV 45.0
 # define FOV_X_DEG 45.0
 # define FOV_Y_DEG (FOV * WIN_RATIO)
@@ -55,10 +55,10 @@
 typedef struct	s_spot
 {
 	t_vect		pos;
-	double		r;
-	double		v;
-	double		b;
-	double		i;
+	float		r;
+	float		v;
+	float		b;
+	float		i;
 	t_vect		dir;
 }				t_spot;
 
@@ -70,12 +70,12 @@ typedef struct	s_obj
 	t_vect		dir3;
 	t_vect		normal;
 	int			type;
-	double		r;
-	double		h;
-	double		reflexion;
+	float		r;
+	float		h;
+	float		reflexion;
 	int			colour;
 	int			id;
-	int			(*hit)(struct s_obj*, t_vect*, t_vect*, double*);
+	int			(*hit)(struct s_obj*, t_vect*, t_vect*, float*);
 	void		(*norm)(t_vect*, struct s_obj*, t_vect*, t_vect*);
 }				t_obj;
 
@@ -96,11 +96,11 @@ typedef struct	s_env
 	int			n_spot;
 	t_obj		**tab_obj;
 	t_obj		*screen;
-	double		pitch;
-	double		yaw;
-	double		r;
-	double		v;
-	double		b;
+	float		pitch;
+	float		yaw;
+	float		r;
+	float		v;
+	float		b;
 }				t_env;
 
 typedef struct	s_hit_equa
@@ -114,10 +114,10 @@ typedef struct	s_hit_equa
 	t_vect		proj;
 	t_vect		*r_dir;
 	t_vect		*r_pos;
-	double		a;
-	double		b;
-	double		c;
-	double		ab2;
+	float		a;
+	float		b;
+	float		c;
+	float		ab2;
 }				t_hit_equa;
 
 int				ft_key_input(int key, t_env *e);
@@ -126,17 +126,17 @@ int				ft_draw(t_env *e);
 void			raytracer(t_env *e);
 void			create_ray(t_env *e, t_vect *ray, int x, int y);
 int				cast_ray(t_env *e, t_vect *ray, int x, int y);
-int				colour_phong(t_env *e, t_obj *obj, double dist, int a);
+int				colour_phong(t_env *e, t_obj *obj, float dist, int a);
 int				try_collision(t_env *e, t_vect *r_pos, int id, t_spot *spot);
 void			init_spots(t_env *e, t_vect *r_pos, t_vect *r_dir);
 void			init_tab_obj(t_env *e, char *src);
-int				hit_sphere(t_obj *s, t_vect *r_pos, t_vect *r_dir, double *t);
+int				hit_sphere(t_obj *s, t_vect *r_pos, t_vect *r_dir, float *t);
 void			norm_sphere(t_vect *r_pos, t_obj *obj, t_vect *ray, t_vect *n);
-int				hit_plane(t_obj *p, t_vect *r_pos, t_vect *r_dir, double *t);
+int				hit_plane(t_obj *p, t_vect *r_pos, t_vect *r_dir, float *t);
 void			norm_plane(t_vect *r_pos, t_obj *obj, t_vect *ray, t_vect *n);
-int				hit_cylinder(t_obj *s, t_vect *r_pos, t_vect *r_dir, double *t);
+int				hit_cylinder(t_obj *s, t_vect *r_pos, t_vect *r_dir, float *t);
 void			norm_cylinder(t_vect *r_pos, t_obj *o, t_vect *ray, t_vect *n);
-int				hit_triangle(t_obj *s, t_vect *r_pos, t_vect *r_dir, double *t);
-int				hit_cone(t_obj *c, t_vect *r_pos, t_vect *r_dir, double *t);
+int				hit_triangle(t_obj *s, t_vect *r_pos, t_vect *r_dir, float *t);
+int				hit_cone(t_obj *c, t_vect *r_pos, t_vect *r_dir, float *t);
 int				ft_ahextocolour(char *ahex);
 #endif

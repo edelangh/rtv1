@@ -7,13 +7,13 @@ void	norm_cylinder(t_vect *r_pos, t_obj *obj, t_vect *ray, t_vect *n)
 	(void)ray;
 }
 
-int		hit_triangle(t_obj *m, t_vect *r_pos, t_vect *r_dir, double *out)
+int		hit_triangle(t_obj *m, t_vect *r_pos, t_vect *r_dir, float *out)
 {
 	t_vect	e[2];
 	t_vect	p[2];
-	double	inv;
-	double	det;
-	double	v[3];
+	float	inv;
+	float	det;
+	float	v[3];
 
 	subtract(set_to(&e[0], &(m->dir2)), &(m->dir));
 	subtract(set_to(&e[1], &(m->dir3)), &(m->dir));
