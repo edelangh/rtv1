@@ -177,5 +177,6 @@ int				hit_cone(t_obj *c, t_vect *r_pos, t_vect *r_dir, float *t);
 int				ft_ahextocolour(char *ahex);
 
 void			ft_exit(int error);
+int				ft_exit_prog(t_env *env);
 
 #endif

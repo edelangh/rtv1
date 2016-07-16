@@ -47,6 +47,7 @@ int		main(int ac, char **av)
 		{
 			init_env(&env, ac, av);
 			mlx_hook(env.win, KEY_PRESS, KEY_PRESS_MASK, ft_key_input, &env);
+			mlx_hook(env.win, 17, 0L, ft_exit_prog, (void *)&env);
 			mlx_hook(env.win, BUTTON_PRESS, BUTTON_PRESS_MASK,
 				button_pess, &env);
 			mlx_expose_hook(env.win, ft_draw, &env);

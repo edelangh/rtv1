@@ -22,3 +22,9 @@ void	ft_exit(int error)
 		ft_putstr("\e[31mError: mlx init failed\n\e[0m");
 	exit(0);
 }
+
+int		ft_exit_prog(t_env *env)
+{
+	(void)env;
+	exit(0);
+}
