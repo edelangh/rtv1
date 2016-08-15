@@ -1,6 +1,6 @@
 #include "rtv1.h"
 
-int count_tabs(char **tab)
+int		count_tabs(char **tab)
 {
 	int		k;
 
@@ -12,7 +12,20 @@ int count_tabs(char **tab)
 	return (k);
 }
 
-int val_tab_count(char **tab)
+int		val_tab_count(char **tab)
 {
 	return (count_tabs != 13);
+}
+
+void	remove_tabs(char **str)
+{
+	char 	*s;
+
+	s = *str;
+	while (s && *s)
+	{
+		if (*s == '\t')
+			*s = ' ';
+		s++;
+	}
 }

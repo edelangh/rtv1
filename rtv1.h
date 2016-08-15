@@ -220,6 +220,6 @@ void			ft_exit(int error);
 int				ft_exit_prog(t_env *env);
 int 			count_tabs(char **tab);
 int 			val_tab_count(char **tab);
-
+void			remove_tabs(char **str);
 
 #endif
