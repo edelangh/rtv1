@@ -22,20 +22,20 @@ int		ft_ahextocolour(char *ahex)
 
 	str = ft_strdup(ahex);
 	str[2] = '\0';
-	temp = ft_convert_base(str, "0123456789ABCDEF", "0123456789");
+	temp = ft_convert_base(str, HEX_STR, DEC_STR);
 	c = ft_atoi(temp);
 	res = c << 16;
 	free(str);
 	free(temp);
 	str = ft_strdup(ahex + 2);
 	str[2] = '\0';
-	temp = ft_convert_base(str, "0123456789ABCDEF", "0123456789");
+	temp = ft_convert_base(str, HEX_STR, DEC_STR);
 	c = ft_atoi(temp);
 	res |= c << 8;
 	free(str);
 	free(temp);
 	str = ft_strdup(ahex + 4);
-	temp = ft_convert_base(str, "0123456789ABCDEF", "0123456789");
+	temp = ft_convert_base(str, HEX_STR, DEC_STR);
 	res |= ft_atoi(temp);
 	free(str);
 	free(temp);
