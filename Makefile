@@ -92,11 +92,13 @@ proper: all clean
 
 re: fclean all
 
-format:
+format: qme norme me
+	@$(call colorecho2,"All good!\n")
+
+norme:
 	@$(call colorecho2,"Norme:\n")
 	@norminette $(SRCS)
 	@norminette $(HEADER)
-	@$(call colorecho2,"All good!")
 
 me: qme
 	@$(call colorecho2,"Author:\n")

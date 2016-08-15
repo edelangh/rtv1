@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validate_map.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: khansman <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/08/15 12:31:58 by khansman          #+#    #+#             */
+/*   Updated: 2016/08/15 12:31:59 by khansman         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rtv1.h"
 
 int		count_tabs(char **tab)
@@ -14,7 +26,7 @@ int		count_tabs(char **tab)
 
 int		val_tab_count(char **tab)
 {
-	if  (count_tabs(tab) != 14)
+	if (count_tabs(tab) != 14)
 	{
 		if (tab && *tab && !ft_strcmp(*tab, "Spot"))
 			return (1);
@@ -23,15 +35,18 @@ int		val_tab_count(char **tab)
 	return (1);
 }
 
-void	remove_tabs(char **str)
+int		remove_tabs(char **str)
 {
-	char 	*s;
+	char	*s;
 
 	s = *str;
-	while (s && *s)
+	if (!s || !*s)
+		return (0);
+	while (*s)
 	{
 		if (*s == '\t')
 			*s = ' ';
 		s++;
 	}
+	return (1);
 }

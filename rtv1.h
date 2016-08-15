@@ -68,8 +68,9 @@
 # define ADD_LINE18 ADD_LINE16 ADD_LINE17
 # define ADD_LINE19 (var.tab = ft_strsplit(var.line, ' ')),
 # define ADD_LINE20 var.tab && var.tab[0] && var.tab[0][0] != '#'
+# define ADD_LINE21 remove_tabs(&(var.line) &&
 # define ADD_IF01 var.k = -1, !var.size[0] || !var.size[1]
-# define ADD_IF02 ADD_LINE19 ADD_LINE20
+# define ADD_IF02 ADD_LINE21 ADD_LINE19 ADD_LINE20
 # define ADD_IF03 x = -1, ++y < env->img->height
 
 # define ERR01 "\e[31mError: Not enouth info for spot\e[0m"
@@ -192,7 +193,6 @@ typedef struct	s_var_tri
 	float		v[3];
 }				t_var_tri;
 
-
 /*
 **	Prototypes
 */
@@ -219,8 +219,8 @@ int				ft_ahextocolour(char *ahex);
 
 void			ft_exit(int error);
 int				ft_exit_prog(t_env *env);
-int 			count_tabs(char **tab);
-int 			val_tab_count(char **tab);
-void			remove_tabs(char **str);
+int				count_tabs(char **tab);
+int				val_tab_count(char **tab);
+int				remove_tabs(char **str);
 
 #endif
