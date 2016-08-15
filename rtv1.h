@@ -71,14 +71,17 @@
 # define ADD_IF02 ADD_LINE19 ADD_LINE20
 # define ADD_IF03 x = -1, ++y < env->img->height
 
-# define ERR01 "\e[31mError :Not enouth info for spot\e[0m"
-# define ERR02 "\e[31mError :Too many spots !\n\e[0m"
+# define ERR01 "\e[31mError: Not enouth info for spot\e[0m"
+# define ERR02 "\e[31mError: Too many spots !\n\e[0m"
 # define ERR03 "\e[31mError: invalide elem in file\n\e[0m"
 # define ERR04 "\e[31mError: can't open file\n\e[0m"
 # define ERR05 "\e[31mError: can't read sizes of file\n\e[0m"
 # define ERR06 "\e[31mError: too many objs\n\e[0m"
 # define ERR07 "\e[31mError: Too few arguments\n\e[0m"
 # define ERR08 "\e[31mError: mlx init failed\n\e[0m"
+
+# define HEX_STR "0123456789ABCDEF"
+# define DEC_STR "0123456789"
 
 /*
 **	Structures
