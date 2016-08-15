@@ -1,21 +1,29 @@
 # var
 CC = gcc
+
 NVCC = /Developer/NVIDIA/CUDA-5.5/bin/nvcc
+
 NAME = rtv1
+
 CFLAGS = -Wall -Wextra -Werror
+
 INC = -I /usr/include/mlx.h -L/usr/local/lib -lmlx -framework OPENGL -framework AppKit
+
 OBJDIR = obj/
+
 HEADERDIR = .
-SRCS = main.c \
-	   raytracer.c \
-	   load_tab_obj.c \
-	   obj_sphere_plane.c \
-	   obj_cyl_cone.c \
-	   obj_tri_circ.c \
-	   colour_phong.c \
-	   input.c \
-	   ft_ahextoi.c \
-	   exit.c \
+
+SRCS = main.c				\
+	   raytracer.c			\
+	   load_tab_obj.c		\
+	   obj_sphere_plane.c	\
+	   obj_cyl_cone.c		\
+	   obj_tri_circ.c		\
+	   colour_phong.c		\
+	   input.c				\
+	   ft_ahextoi.c			\
+	   exit.c				\
+	   validate_map.c		\
 
 HEADER = $(NAME).h
 
