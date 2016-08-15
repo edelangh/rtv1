@@ -13,6 +13,10 @@
 #ifndef RTV1_H
 # define RTV1_H
 
+/*
+**	Includes
+*/
+
 # include "libft.h"
 # include "ft_mlx.h"
 # include "v3d_lib.h"
@@ -22,6 +26,10 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
+
+/*
+**	Defines
+*/
 
 # define WIN_WIDTH 640
 # define WIN_HEIGHT 480
@@ -62,6 +70,10 @@
 # define ADD_IF01 var.k = -1, !var.size[0] || !var.size[1]
 # define ADD_IF02 ADD_LINE19 ADD_LINE20
 # define ADD_IF03 x = -1, ++y < env->img->height
+
+/*
+**	Structures
+*/
 
 typedef struct	s_spot
 {
@@ -166,6 +178,11 @@ typedef struct	s_var_tri
 	float		det;
 	float		v[3];
 }				t_var_tri;
+
+
+/*
+**	Prototypes
+*/
 
 int				ft_key_input(int key, t_env *e);
 int				ft_draw(t_env *e);
