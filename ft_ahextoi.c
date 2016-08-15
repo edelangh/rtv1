@@ -12,9 +12,6 @@
 
 #include "rtv1.h"
 
-#include "libft.h"
-#include <stdlib.h>
-
 int		ft_ahextocolour(char *ahex)
 {
 	char	*str;

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "rtv1.h"
-#include <fcntl.h>
 
 void	add_spot(t_env *env, char **tab, int size[2])
 {
