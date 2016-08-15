@@ -116,7 +116,11 @@ void	init_tab_obj(t_env *env, char *src)
 	while (get_next_line(var.fd, &var.line) > 0)
 	{
 		if (ADD_IF02)
+		{
+			if (!val_tab_count(var.tab))
+				ft_exit(3);
 			add_obj_to_tab(env, var.tab, ++var.k, var.size);
+		}
 		if (var.k > var.size[0])
 			ft_exit(6);
 		ft_freetab(var.tab);
