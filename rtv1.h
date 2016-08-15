@@ -68,9 +68,9 @@
 # define ADD_LINE18 ADD_LINE16 ADD_LINE17
 # define ADD_LINE19 (var.tab = ft_strsplit(var.line, ' ')),
 # define ADD_LINE20 var.tab && var.tab[0] && var.tab[0][0] != '#'
-# define ADD_LINE21 remove_tabs(&(var.line)) &&
+# define ADD_LINE21 remove_tabs(&(var.line))
 # define ADD_IF01 var.k = -1, !var.size[0] || !var.size[1]
-# define ADD_IF02 ADD_LINE21 (ADD_LINE19 ADD_LINE20)
+# define ADD_IF02 ADD_LINE21 && (ADD_LINE19 ADD_LINE20)
 # define ADD_IF03 x = -1, ++y < env->img->height
 
 # define ERR01 "\e[31mError: Not enouth info for spot\e[0m"
