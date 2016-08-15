@@ -14,7 +14,7 @@ int		count_tabs(char **tab)
 
 int		val_tab_count(char **tab)
 {
-	return (count_tabs != 13);
+	return (count_tabs(tab) != 13);
 }
 
 void	remove_tabs(char **str)
