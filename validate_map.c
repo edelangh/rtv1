@@ -63,7 +63,7 @@ int		valid_object(char *str)
 		return (1);
 	if (!ft_strcmp(str, "Triangle") || !ft_strcmp(str, "Cone"))
 		return (1);
-	if (!ft_strcmp(str, "Cyliner") || !ft_strcmp(str, "Spot"))
+	if (!ft_strcmp(str, "Cylinder") || !ft_strcmp(str, "Spot"))
 		return (1);
 	return (0);
 }
