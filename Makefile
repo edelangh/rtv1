@@ -24,6 +24,7 @@ SRCS = main.c				\
 	   ft_ahextoi.c			\
 	   exit.c				\
 	   validate_map.c		\
+	   camera.c				\
 
 HEADER = $(NAME).h
 

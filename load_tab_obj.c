@@ -101,9 +101,7 @@ void	add_obj_to_tab(t_env *env, char **tab, int k, int size[2])
 
 void	init_tab_obj(t_env *env, char *src)
 {
-	t_tab_var var;
-
-	var.line = NULL;
+	SET_VAR;
 	if ((var.fd = open(src, O_RDONLY)) <= 0)
 		ft_exit(4);
 	ADD_LINE18;
@@ -119,11 +117,13 @@ void	init_tab_obj(t_env *env, char *src)
 		{
 			if (!val_tab_count(var.tab))
 				ft_exit(3);
-			add_obj_to_tab(env, var.tab, ++var.k, var.size);
+			if (valid_object(var.tab[0]))
+				add_obj_to_tab(env, var.tab, ++var.k, var.size);
+			else if (!ft_strcmp(var.tab[0], "Camera"))
+				change_camera(env, var.tab);
 		}
 		if (var.k > var.size[0])
 			ft_exit(6);
-		ft_freetab(var.tab);
-		free(var.line);
+		FREE00;
 	}
 }

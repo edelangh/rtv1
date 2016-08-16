@@ -26,11 +26,17 @@ int		count_tabs(char **tab)
 
 int		val_tab_count(char **tab)
 {
-	if (count_tabs(tab) != 14)
+	int		k;
+
+	k = count_tabs(tab);
+	if (k != 14)
 	{
-		if (tab && *tab && !ft_strcmp(*tab, "Spot"))
+		if (tab && *tab && !ft_strcmp(*tab, "Spot") && k == 8)
 			return (1);
-		return (0);
+		else if (tab && *tab && !ft_strcmp(*tab, "Camera") && k == 9)
+			return (1);
+		else
+			return (0);
 	}
 	return (1);
 }
@@ -49,4 +55,15 @@ int		remove_tabs(char **str)
 		s++;
 	}
 	return (1);
+}
+
+int		valid_object(char *str)
+{
+	if (!ft_strcmp(str, "Sphere") || !ft_strcmp(str, "Plane"))
+		return (1);
+	if (!ft_strcmp(str, "Triangle") || !ft_strcmp(str, "Cone"))
+		return (1);
+	if (!ft_strcmp(str, "Cyliner") || !ft_strcmp(str, "Spot"))
+		return (1);
+	return (0);
 }
