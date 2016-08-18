@@ -87,6 +87,25 @@
 # define HEX_STR "0123456789ABCDEF"
 # define DEC_STR "0123456789"
 # define ALL_STR "Sphere\nPlane\nTriangle\nCone\nCylinder\nSpot"
+# define CAM_ANG_ADJ 0.1
+
+# define MLX_KEY_UP 126
+# define MLX_KEY_DOWN 125
+# define MLX_KEY_LEFT 123
+# define MLX_KEY_RIGHT 124
+# define MLX_KEY_PLUS1 24
+# define MLX_KEY_MINUS1 27
+# define MLX_KEY_ESC 53
+# define MLX_KEY_A 0
+# define MLX_KEY_S 1
+# define MLX_KEY_D 2
+# define MLX_KEY_Q 12
+# define MLX_KEY_W 13
+# define MLX_KEY_E 14
+# define MLX_KEY_O 31
+# define MLX_KEY_P 35
+# define MLX_KEY_L 37
+# define MLX_KEY_K 40
 
 /*
 **	Structures
