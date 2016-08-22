@@ -25,6 +25,11 @@ SRCS = main.c				\
 	   exit.c				\
 	   validate_map.c		\
 	   camera.c				\
+	   v3d_calc.c			\
+	   v3d_calc2.c			\
+	   v3d_calc3.c			\
+	   ft_image.c			\
+	   ft_convert_base.c	\
 
 HEADER = $(NAME).h
 

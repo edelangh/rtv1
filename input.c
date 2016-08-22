@@ -32,6 +32,8 @@ static int	ft_key_input3(int key, t_env *env)
 		add(&(env->pos), &(env->dir));
 		env->pitch += M_PI / 2;
 	}
+	else if (key == MLX_KEY_P)
+		ft_putstr("pressed 'p'\n");
 	else
 		return (1);
 	return (0);

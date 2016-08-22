@@ -18,9 +18,10 @@
 */
 
 # include "libft.h"
-# include "ft_mlx.h"
-# include "v3d_lib.h"
-# include "get_next_line.h"
+# include <mlx.h>
+//# include "ft_mlx.h"
+//# include "v3d_lib.h"
+//# include "get_next_line.h"
 
 # include <unistd.h>
 # include <stdio.h>
@@ -107,9 +108,44 @@
 # define MLX_KEY_L 37
 # define MLX_KEY_K 40
 
+# define KEY_PRESS 2
+# define KEY_RELEASE 3
+# define BUTTON_PRESS 4
+# define BUTTON_RELEASE 5
+# define MOTION_NOTIFY 6
+# define KEY_PRESS_MASK (1L<<0)
+# define KEY_RELEASE_MASK (1L<<1)
+# define BUTTON_PRESS_MASK (1L<<2)
+# define BUTTON_RELEASE_MASK (1L<<3)
+# define MOTION_NOTIFY_MASK (1L<<6)
+# define ft_freetab ft_free2d
+
 /*
 **	Structures
 */
+
+typedef unsigned int	t_uint;
+
+typedef struct	s_vect
+{
+	double		x;
+	double		y;
+	double		z;
+}				t_vect;
+
+typedef struct	s_img
+{
+	void			*img;
+	char			*data;
+	unsigned int	*udata;
+	int				width;
+	int				height;
+	int				endian;
+	int				bpp;
+	int				sizeline;
+	int				sl_div;
+	int				bpp_div;
+}					t_img;
 
 typedef struct	s_spot
 {
@@ -238,6 +274,34 @@ void			norm_cylinder(t_vect *r_pos, t_obj *o, t_vect *ray, t_vect *n);
 int				hit_triangle(t_obj *s, t_vect *r_pos, t_vect *r_dir, float *t);
 int				hit_cone(t_obj *c, t_vect *r_pos, t_vect *r_dir, float *t);
 int				ft_ahextocolour(char *ahex);
+
+double	dot_product(t_vect *v1, t_vect *v2);
+t_vect	*clamp_vec(t_vect *v1, double min, double max);
+double	clamp(double n, double min2, double max2);
+t_vect	*turn_orthogonal(t_vect *v1);
+t_vect	*cross_product(t_vect *v1, t_vect *v2);
+t_vect	*scalar_multiply(t_vect *a, double amount);
+t_vect	*normalize(t_vect *a);
+t_vect	*multiply(t_vect *v1, t_vect *v2);
+t_vect	*add(t_vect *v1, t_vect *v2);
+t_vect	*subtract(t_vect *v1, t_vect *v2);
+t_vect	*set_to(t_vect *v1, t_vect *v2);
+t_vect	*clamp_vec(t_vect *v1, double min, double max);
+double	clamp(double n, double min2, double max2);
+t_vect	*turn_orthogonal(t_vect *v1);
+t_vect	*cross_product(t_vect *v1, t_vect *v2);
+double	length_vec(t_vect *z);
+t_vect	*scalar_multiply(t_vect *a, double amount);
+void	ft_fill_img(t_img *i, unsigned int color);
+t_uint	ft_get_pixel_from_image(t_img *i, int x, int y);
+void	ft_pixel_put_to_image(t_img *i, int x, int y, unsigned int color);
+t_img	*ft_load_img(void *mlx, char *src);
+t_img	*ft_new_img(void *mlx, int width, int height);
+size_t	ft_tablen(void **tab);
+double		ft_atof(const char *str);
+char			*ft_convert_base(char *nbr, char *base_from, char *base_to);
+size_t	ft_len_untill(const char *str, char c);
+char	*ft_strrev(char *s);
 
 void			ft_exit(int error);
 int				ft_exit_prog(t_env *env);
