@@ -196,6 +196,7 @@ typedef struct	s_env
 	float		r;
 	float		v;
 	float		b;
+	int			clear_img;
 }				t_env;
 
 typedef struct	s_hit_equa

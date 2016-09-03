@@ -12,6 +12,15 @@
 
 #include "rtv1.h"
 
+static int	ft_key_input4(int key, t_env *env)
+{
+	if (key == MLX_KEY_K)
+		env->clear_img += (env->clear_img) ? -1 : +1;
+	else
+		return (1);
+	return (0);
+}
+
 static int	ft_key_input3(int key, t_env *env)
 {
 	if (key == MLX_KEY_W)
@@ -35,7 +44,7 @@ static int	ft_key_input3(int key, t_env *env)
 	else if (key == MLX_KEY_P)
 		ft_putstr("pressed 'p'\n");
 	else
-		return (1);
+		return (ft_key_input4(key, env));
 	return (0);
 }
 

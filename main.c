@@ -15,6 +15,11 @@
 int		ft_draw(t_env *env)
 {
 	mlx_put_image_to_window(env->mlx, env->win, env->img->img, 0, -1);
+	if (env->clear_img)
+	{
+		free(env->img);
+		env->img = ft_new_img(env->mlx, WIN_WIDTH, WIN_HEIGHT);
+	}
 	return (0);
 }
 

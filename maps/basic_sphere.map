@@ -1,0 +1,8 @@
+10 10
+#info      x    y    z     x     y    z   x    y    z rayon hauteur color reflex
+Sphere     0    0   20     0     0    0   0    0    0   3    0     F79727    0.1
+#Spots     x    y    z    red  green blue brightness
+Spot       5   -5   -9     1     1    1        1
+Spot      -5    5    9     1   0.1  0.1        2
+#Camera    x    y    z     x     y    z  yaw pitch
+Camera     0    0   -5     0     0    1   0    0
