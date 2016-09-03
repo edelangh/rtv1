@@ -108,6 +108,17 @@
 # define MLX_KEY_L 37
 # define MLX_KEY_K 40
 
+# define MLX_KEY_0 29
+# define MLX_KEY_1 18
+# define MLX_KEY_2 19
+# define MLX_KEY_3 20
+# define MLX_KEY_4 21
+# define MLX_KEY_5 23
+# define MLX_KEY_6 22
+# define MLX_KEY_7 26
+# define MLX_KEY_8 28
+# define MLX_KEY_9 29
+
 # define KEY_PRESS 2
 # define KEY_RELEASE 3
 # define BUTTON_PRESS 4
@@ -196,6 +207,7 @@ typedef struct	s_env
 	float		r;
 	float		v;
 	float		b;
+	int			clear_img;
 }				t_env;
 
 typedef struct	s_hit_equa
