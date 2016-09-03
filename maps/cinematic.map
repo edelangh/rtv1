@@ -1,19 +1,12 @@
-40 4
+10 10
 #info      x    y    z     x     y    z   x    y    z rayon hauteur color reflex
-Sphere     5 -7.0   25     0     0    0   0    0    0   3    0     FFFFFF  0.7
-Sphere    -6   -7   25     0     0    0   0    0    0   3    0     FFFFFF  0.1
-Sphere    -7 -1.5   25     0     0    0   0    0    0   3    0     FFFFFF  0.1
-Plane     10    0   15     1     0    0   0    0    0   0    0     D62D20    0
-Plane    -10    0   15     1     0    0   0    0    0   0    0     D62D20  0.8
-Plane      0   10    0     0    -1    0   0    0    0   0    0     F79727    0
-Plane      0  -10    0     0     1    0   0    0    0   0    0     0099FF    0
-Plane      0    0   35     0     0    1   0    0    0   0    0     2D6325    0
-Cylinder   0    0 34.8     1     0    0   0    0    0   1    5     B319AB    0
-Cylinder   5 -2.5 34.8     0     1    0   0    0    0   1    5     B319AB    0
-Cylinder  -5 -2.5 34.8     0     1    0   0    0    0   1    5     B319AB    0
-Cylinder   0   10   35     1     0    0   0    0    0   5    5     F0F0F0  0.8
-Triangle   0    0 34.8   5.0  -2.5 34.8  -5 -2.5 34.8   5    5     FFFFFF  0.8
-Cone       0   -5   35     0     1    0   0    0    0 0.6    5     2EB82E    0
+Plane     25    0    0    10     0    0   0    0    0   0    0     000000    1
+Plane    -25    0    0    10     0    0   0    0    0   0    0     000000  	 1
+Plane      0   25    0     0     10   0   0    0    0   0    0     000000    1
+Plane      0  -25    0     0     10   0   0    0    0   0    0     000000    1
+Plane      0    0   70     0     0   10   0    0    0   0    0     000000    1
+Plane      0    0  -25     0     0   10   0    0    0   0    0     000000    1
+Sphere   -10   10   25     0     0    0   0    0    0   2    0     FFFFFF    1
 #Spots
-Spot       5    5   20   1  1 1 1
-Spot      -5    5   20   1  0.2 0.2 1
+Spot       0   0  -10   1  1 1 5
+#Spot      -5    5   9   1  0.1 0.1 2
