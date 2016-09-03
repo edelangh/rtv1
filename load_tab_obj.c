@@ -3,33 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   load_tab_obj.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edelangh <edelangh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: khansman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/02/15 12:33:21 by edelangh          #+#    #+#             */
-/*   Updated: 2015/03/22 10:45:48 by edelangh         ###   ########.fr       */
+/*   Created: 2016/07/16 15:11:14 by khansman          #+#    #+#             */
+/*   Updated: 2016/07/16 15:11:16 by khansman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-#include <fcntl.h>
 
-void	add_spot(t_env *e, char **tab, int size[2])
+void	add_spot(t_env *env, char **tab, int size[2])
 {
-	int	i;
+	int	k;
 
 	if (ft_tablen((void**)tab) < 7)
-		exit(ft_dprintf(2, "error :Not enouth info for spot"));
-	i = e->n_spot;
-	e->spots[i].pos.x = ft_atof(tab[1]);
-	e->spots[i].pos.y = ft_atof(tab[2]);
-	e->spots[i].pos.z = ft_atof(tab[3]);
-	e->spots[i].r = ft_atof(tab[4]);
-	e->spots[i].v = ft_atof(tab[5]);
-	e->spots[i].b = ft_atof(tab[6]);
-	e->spots[i].i = ft_atof(tab[7]);
-	e->n_spot++;
-	if (e->n_spot > size[1])
-		exit(ft_dprintf(2, "error :Too many spots !\n"));
+		ft_exit(1);
+	k = env->n_spot;
+	env->spots[k].pos.x = ft_atof(tab[1]);
+	env->spots[k].pos.y = ft_atof(tab[2]);
+	env->spots[k].pos.z = ft_atof(tab[3]);
+	env->spots[k].r = ft_atof(tab[4]);
+	env->spots[k].v = ft_atof(tab[5]);
+	env->spots[k].b = ft_atof(tab[6]);
+	env->spots[k].i = ft_atof(tab[7]);
+	env->n_spot++;
+	if (env->n_spot > size[1])
+		ft_exit(2);
 }
 
 void	set_obj_triangle(t_obj *obj, char **tab)
@@ -73,17 +72,17 @@ void	select_type(char **tab, t_obj *obj)
 	}
 }
 
-void	add_obj_to_tab(t_env *e, char **tab, int i, int size[2])
+void	add_obj_to_tab(t_env *env, char **tab, int k, int size[2])
 {
 	t_obj	*obj;
 
 	if (tab && !ft_strcmp(tab[0], "Spot"))
 	{
-		add_spot(e, tab, size);
+		add_spot(env, tab, size);
 		return ;
 	}
 	if (!tab || ft_tablen((void**)tab) < 13)
-		exit(ft_dprintf(2, "{red}error invalide elem in file{eoc}\n"));
+		ft_exit(3);
 	obj = ft_memalloc(sizeof(t_obj));
 	obj->pos.x = ft_atof(tab[1]);
 	obj->pos.y = ft_atof(tab[2]);
@@ -91,40 +90,40 @@ void	add_obj_to_tab(t_env *e, char **tab, int i, int size[2])
 	obj->dir.x = ft_atof(tab[4]);
 	obj->dir.y = ft_atof(tab[5]);
 	obj->dir.z = ft_atof(tab[6]);
-	obj->id = i;
+	obj->id = k;
 	obj->r = ft_atof(tab[10]);
 	obj->h = ft_atof(tab[11]);
-	obj->color = ft_ahextocolor(tab[12]);
+	obj->colour = ft_ahextocolour(tab[12]);
 	obj->reflexion = ft_atof(tab[13]);
 	select_type(tab, obj);
-	e->tab_obj[i] = obj;
+	env->tab_obj[k] = obj;
 }
 
-void	init_tab_obj(t_env *e, char *src)
+void	init_tab_obj(t_env *env, char *src)
 {
-	int		i;
-	int		fd;
-	char	*line;
-	char	**tab;
-	int		size[2];
-
-	line = NULL;
-	if ((fd = open(src, O_RDONLY)) <= 0)
-		exit(ft_dprintf(2, "{red}error can't open file\n{eoc}"));
-	get_next_line(fd, &line), tab = ft_strsplit(line, ' ');
-	size[0] = ft_atoi(tab[0]);
-	size[1] = ft_atoi(tab[1]);
-	if (i = -1, !size[0] || !size[1])
-		exit(ft_dprintf(2, "{red}error can't read sizes of file\n{eoc}"));
-	e->tab_obj = ft_memalloc(sizeof(t_obj*) * (size[0] + 1));
-	e->spots = ft_memalloc(sizeof(t_spot) * (size[1] + 1));
-	while (get_next_line(fd, &line) > 0)
+	SET_VAR;
+	if ((var.fd = open(src, O_RDONLY)) <= 0)
+		ft_exit(4);
+	ADD_LINE18;
+	var.size[0] = ft_atoi(var.tab[0]);
+	var.size[1] = ft_atoi(var.tab[1]);
+	if (ADD_IF01)
+		ft_exit(5);
+	env->tab_obj = ft_memalloc(sizeof(t_obj*) * (var.size[0] + 1));
+	env->spots = ft_memalloc(sizeof(t_spot) * (var.size[1] + 1));
+	while (get_next_line(var.fd, &var.line) > 0)
 	{
-		if ((tab = ft_strsplit(line, ' ')), tab && tab[0] && tab[0][0] != '#')
-			add_obj_to_tab(e, tab, ++i, size);
-		if (i > size[0])
-			exit(ft_dprintf(2, "{red}error too many objs\n{eoc}"));
-		ft_freetab(tab);
-		free(line);
+		if (ADD_IF02)
+		{
+			if (!val_tab_count(var.tab))
+				ft_exit(3);
+			if (valid_object(var.tab[0]))
+				add_obj_to_tab(env, var.tab, ++var.k, var.size);
+			else if (!ft_strcmp(var.tab[0], "Camera"))
+				change_camera(env, var.tab);
+		}
+		if (var.k > var.size[0])
+			ft_exit(6);
+		FREE00;
 	}
 }
