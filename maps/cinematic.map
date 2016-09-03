@@ -1,0 +1,12 @@
+10 10
+#info      x    y    z     x     y    z   x    y    z rayon hauteur color reflex
+Plane     25    0    0    10     0    0   0    0    0   0    0     000000    1
+Plane    -25    0    0    10     0    0   0    0    0   0    0     000000  	 1
+Plane      0   25    0     0     10   0   0    0    0   0    0     000000    1
+Plane      0  -25    0     0     10   0   0    0    0   0    0     000000    1
+Plane      0    0   70     0     0   10   0    0    0   0    0     000000    1
+Plane      0    0  -25     0     0   10   0    0    0   0    0     000000    1
+Sphere   -10   10   25     0     0    0   0    0    0   2    0     FFFFFF    1
+#Spots
+Spot       0   0  -10   1  1 1 5
+#Spot      -5    5   9   1  0.1 0.1 2

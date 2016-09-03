@@ -3,57 +3,85 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edelangh <edelangh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: khansman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/20 15:06:05 by edelangh          #+#    #+#             */
-/*   Updated: 2015/03/22 12:21:58 by edelangh         ###   ########.fr       */
+/*   Created: 2016/07/16 15:11:07 by khansman          #+#    #+#             */
+/*   Updated: 2016/07/16 15:11:08 by khansman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-int		ft_key_input2(int key, t_env *e)
+static int	ft_key_input4(int key, t_env *env)
 {
-	if (key == 53)
-		exit(0);
-	else if (key == 126)
-		e->pitch += 0.2;
-	else if (key == 125)
-		e->pitch -= 0.2;
-	else if (key == 123)
-		e->yaw += 0.2;
-	else if (key == 124)
-		e->yaw -= 0.2;
-	else if (key == 12)
-	{
-		e->yaw += M_PI / 2;
-		create_ray(e, &(e->dir), WIN_WIDTH / 2, WIN_HEIGHT / 2);
-		add(&(e->pos), &(e->dir)), e->yaw -= M_PI / 2;
-	}
-	else if (key == 2)
-	{
-		e->yaw -= M_PI / 2;
-		create_ray(e, &(e->dir), WIN_WIDTH / 2, WIN_HEIGHT / 2);
-		add(&(e->pos), &(e->dir)), e->yaw += M_PI / 2;
-	}
+	if (key == MLX_KEY_K)
+		env->clear_img += (env->clear_img) ? -1 : +1;
 	else
 		return (1);
 	return (0);
 }
 
-int		ft_key_input(int key, t_env *e)
+static int	ft_key_input3(int key, t_env *env)
 {
-	ft_dprintf(1, "key pressed : %d\n", key);
-	if (!ft_key_input2(key, e))
-		(void)e;
-	else if (key == 6)
+	if (key == MLX_KEY_W)
+		env->pos.z += env->dir.z;
+	else if (key == MLX_KEY_S)
+		env->pos.z -= env->dir.z;
+	else if (key == MLX_KEY_Q)
 	{
-		add(&(e->pos), &(e->dir));
+		env->pitch += M_PI / 2;
+		create_ray(env, &(env->dir), WIN_WIDTH / 2, WIN_HEIGHT / 2);
+		add(&(env->pos), &(env->dir));
+		env->pitch -= M_PI / 2;
 	}
-	else if (key == 1)
-		subtract(&(e->pos), &(e->dir));
-	create_ray(e, &(e->dir), WIN_WIDTH / 2, WIN_HEIGHT / 2);
-	raytracer(e);
-	ft_draw(e);
+	else if (key == MLX_KEY_E)
+	{
+		env->pitch -= M_PI / 2;
+		create_ray(env, &(env->dir), WIN_WIDTH / 2, WIN_HEIGHT / 2);
+		add(&(env->pos), &(env->dir));
+		env->pitch += M_PI / 2;
+	}
+	else if (key == MLX_KEY_P)
+		ft_putstr("pressed 'p'\n");
+	else
+		return (ft_key_input4(key, env));
+	return (0);
+}
+
+static int	ft_key_input2(int key, t_env *env)
+{
+	if (key == MLX_KEY_ESC)
+		exit(0);
+	else if (key == MLX_KEY_UP)
+		env->pitch += CAM_ANG_ADJ;
+	else if (key == MLX_KEY_DOWN)
+		env->pitch -= CAM_ANG_ADJ;
+	else if (key == MLX_KEY_LEFT)
+		env->yaw += CAM_ANG_ADJ;
+	else if (key == MLX_KEY_RIGHT)
+		env->yaw -= CAM_ANG_ADJ;
+	else if (key == MLX_KEY_A)
+	{
+		env->yaw += M_PI / 2;
+		create_ray(env, &(env->dir), WIN_WIDTH / 2, WIN_HEIGHT / 2);
+		ADD_LINE3;
+	}
+	else if (key == MLX_KEY_D)
+	{
+		env->yaw -= M_PI / 2;
+		create_ray(env, &(env->dir), WIN_WIDTH / 2, WIN_HEIGHT / 2);
+		ADD_LINE6;
+	}
+	else
+		return (ft_key_input3(key, env));
+	return (0);
+}
+
+int			ft_key_input(int key, t_env *env)
+{
+	ft_key_input2(key, env);
+	create_ray(env, &(env->dir), WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	raytracer(env);
+	ft_draw(env);
 	return (0);
 }

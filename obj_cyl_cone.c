@@ -3,36 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   obj_cyl_cone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edelangh <edelangh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: khansman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/02/23 14:41:53 by edelangh          #+#    #+#             */
-/*   Updated: 2015/03/05 18:47:22 by edelangh         ###   ########.fr       */
+/*   Created: 2016/07/16 15:11:38 by khansman          #+#    #+#             */
+/*   Updated: 2016/07/16 15:11:40 by khansman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-double	c2(double x)
+float	c2(float x)
 {
-	double	a;
+	float	a;
 
 	a = cos(x);
 	return (a * a);
 }
 
-double	s2(double x)
+float	s2(float x)
 {
-	double	a;
+	float	a;
 
 	a = sin(x);
 	return (a * a);
 }
 
-int		solv_equa(t_hit_equa *q, t_obj *s, double *t)
+int		solv_equa(t_hit_equa *q, t_obj *s, float *t)
 {
-	double	time;
-	double	d;
-	double	tmp;
+	float	time;
+	float	d;
+	float	temp;
 
 	d = q->b * q->b - 4 * q->a * q->c;
 	if (d < 0)
@@ -43,24 +43,24 @@ int		solv_equa(t_hit_equa *q, t_obj *s, double *t)
 	scalar_multiply(set_to(&(q->inter), q->r_dir), time);
 	add(&(q->inter), q->r_pos);
 	subtract(set_to(&(q->proj), &(q->inter)), &(q->aa));
-	tmp = dot_product(&(q->ab), &(q->proj)) / q->ab2;
-	scalar_multiply(&(q->ab), tmp);
+	temp = dot_product(&(q->ab), &(q->proj)) / q->ab2;
+	scalar_multiply(&(q->ab), temp);
 	add(&(q->ab), &(q->aa));
 	set_to(&(q->proj), &(q->ab));
 	subtract(&(q->proj), &(s->pos));
-	tmp = length_vec(&(q->proj));
-	if (tmp < s->h)
+	temp = length_vec(&(q->proj));
+	if (temp < s->h)
 		*t = time;
 	else
 		return (0);
 	return (1);
 }
 
-int		hit_cone(t_obj *s, t_vect *r_pos, t_vect *r_dir, double *t)
+int		hit_cone(t_obj *s, t_vect *r_pos, t_vect *r_dir, float *t)
 {
 	t_hit_equa	q;
-	double		x;
-	double		y;
+	float		x;
+	float		y;
 	t_vect		delta;
 
 	q.r_pos = r_pos;
@@ -85,7 +85,7 @@ int		hit_cone(t_obj *s, t_vect *r_pos, t_vect *r_dir, double *t)
 	return (1);
 }
 
-int		hit_cylinder(t_obj *s, t_vect *r_pos, t_vect *r_dir, double *t)
+int		hit_cylinder(t_obj *s, t_vect *r_pos, t_vect *r_dir, float *t)
 {
 	t_hit_equa	q;
 

@@ -1,0 +1,16 @@
+10 10
+#info      x    y    z     x     y    z   x    y    z rayon hauteur color reflex
+Plane     25    0    0    10     0    0   0    0    0   0    0     0E600     0
+Plane    -25    0    0    10     0    0   0    0    0   0    0     0040FF    0
+Plane      0   25    0     0     10   0   0    0    0   0    0     E60000    0
+Plane      0  -25    0     0     10   0   0    0    0   0    0     E6AC00    0
+Plane      0    0   70     0     0   10   0    0    0   0    0     2D6325    0
+Plane      0    0  -25     0     0   10   0    0    0   0    0     E60073    0
+Sphere    10   10   50     0     0    0   0    0    0   2    0     000000    1
+Cylinder  20   20   70     1     0    0   0    0    0   2   50     30000     0
+Cone       0   -5   65     0     1    0   0    0    0 0.6    5     2EB82E    0
+#Spots     x    y    z    red  green blue brightness
+Spot       5   -5   -9     1     1    1        1
+Spot      -5    5    9     1   0.1  0.1        2
+#Camera    x    y    z     x     y    z  yaw pitch
+Camera     0    0   -5     0     0    1   0    0
