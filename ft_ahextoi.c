@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-int		ft_ahextocolour(char *ahex)
+int			ft_ahextocolour(char *ahex)
 {
 	char	*str;
 	char	*temp;
@@ -41,7 +41,7 @@ int		ft_ahextocolour(char *ahex)
 	return (res);
 }
 
-size_t	ft_tablen(void **tab)
+size_t		ft_tablen(void **tab)
 {
 	size_t	len;
 
@@ -72,7 +72,7 @@ double		ft_atof(const char *str)
 	return (result);
 }
 
-size_t	ft_len_untill(const char *str, char c)
+size_t		ft_len_untill(const char *str, char c)
 {
 	size_t	len;
 
@@ -84,7 +84,7 @@ size_t	ft_len_untill(const char *str, char c)
 	return (len);
 }
 
-char	*ft_strrev(char *s)
+char		*ft_strrev(char *s)
 {
 	size_t	len;
 	size_t	i;

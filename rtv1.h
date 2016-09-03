@@ -6,7 +6,7 @@
 /*   By: khansman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/16 15:12:40 by khansman          #+#    #+#             */
-/*   Updated: 2016/07/16 15:13:23 by khansman         ###   ########.fr       */
+/*   Updated: 2016/09/03 13:49:20 by khansman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,18 @@
 
 # include "libft.h"
 # include <mlx.h>
-//# include "ft_mlx.h"
-//# include "v3d_lib.h"
-//# include "get_next_line.h"
-
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
 # include <fcntl.h>
+
+/*
+**		Old Includes:
+**			include "ft_mlx.h"
+**			include "v3d_lib.h"
+**			include "get_next_line.h"
+*/
 
 /*
 **	Defines
@@ -70,10 +73,11 @@
 # define ADD_LINE19 (var.tab = ft_strsplit(var.line, ' ')),
 # define ADD_LINE20 var.tab && var.tab[0] && var.tab[0][0] != '#'
 # define ADD_LINE21 remove_tabs(&(var.line))
+# define ADD_LINE22 (y = -1), ++x < i->width
 # define ADD_IF01 var.k = -1, !var.size[0] || !var.size[1]
 # define ADD_IF02 ADD_LINE21 && (ADD_LINE19 ADD_LINE20)
 # define ADD_IF03 x = -1, ++y < env->img->height
-# define FREE00 ft_freetab(var.tab);free(var.line)
+# define FREE00 ft_free2d(var.tab);free(var.line)
 # define SET_VAR t_tab_var var;var.line = NULL
 
 # define ERR01 "\e[31mError: Not enouth info for spot\e[0m"
@@ -129,7 +133,6 @@
 # define BUTTON_PRESS_MASK (1L<<2)
 # define BUTTON_RELEASE_MASK (1L<<3)
 # define MOTION_NOTIFY_MASK (1L<<6)
-# define ft_freetab ft_free2d
 
 /*
 **	Structures
@@ -137,14 +140,14 @@
 
 typedef unsigned int	t_uint;
 
-typedef struct	s_vect
+typedef struct		s_vect
 {
-	double		x;
-	double		y;
-	double		z;
-}				t_vect;
+	double			x;
+	double			y;
+	double			z;
+}					t_vect;
 
-typedef struct	s_img
+typedef struct		s_img
 {
 	void			*img;
 	char			*data;
@@ -158,169 +161,186 @@ typedef struct	s_img
 	int				bpp_div;
 }					t_img;
 
-typedef struct	s_spot
+typedef struct		s_spot
 {
-	t_vect		pos;
-	float		r;
-	float		v;
-	float		b;
-	float		i;
-	t_vect		dir;
-}				t_spot;
+	t_vect			pos;
+	float			r;
+	float			v;
+	float			b;
+	float			i;
+	t_vect			dir;
+}					t_spot;
 
-typedef struct	s_obj
+typedef struct		s_obj
 {
-	t_vect		pos;
-	t_vect		dir;
-	t_vect		dir2;
-	t_vect		dir3;
-	t_vect		normal;
-	int			type;
-	float		r;
-	float		h;
-	float		reflexion;
-	int			colour;
-	int			id;
-	int			(*hit)(struct s_obj*, t_vect*, t_vect*, float*);
-	void		(*norm)(t_vect*, struct s_obj*, t_vect*, t_vect*);
-}				t_obj;
+	t_vect			pos;
+	t_vect			dir;
+	t_vect			dir2;
+	t_vect			dir3;
+	t_vect			normal;
+	int				type;
+	float			r;
+	float			h;
+	float			reflexion;
+	int				colour;
+	int				id;
+	int				(*hit)(struct s_obj*, t_vect*, t_vect*, float*);
+	void			(*norm)(t_vect*, struct s_obj*, t_vect*, t_vect*);
+}					t_obj;
 
-typedef struct	s_env
+typedef struct		s_env
 {
-	void		*mlx;
-	void		*win;
-	int			ac;
-	char		**av;
-	int			test;
-	t_img		*img;
-	t_vect		pos;
-	t_vect		dir;
-	t_vect		save_dir;
-	t_spot		*spots;
-	t_vect		*r_dir;
-	t_vect		*r_pos;
-	int			n_spot;
-	t_obj		**tab_obj;
-	t_obj		*screen;
-	float		pitch;
-	float		yaw;
-	float		r;
-	float		v;
-	float		b;
-	int			clear_img;
-}				t_env;
+	void			*mlx;
+	void			*win;
+	int				ac;
+	char			**av;
+	int				test;
+	t_img			*img;
+	t_vect			pos;
+	t_vect			dir;
+	t_vect			save_dir;
+	t_spot			*spots;
+	t_vect			*r_dir;
+	t_vect			*r_pos;
+	int				n_spot;
+	t_obj			**tab_obj;
+	t_obj			*screen;
+	float			pitch;
+	float			yaw;
+	float			r;
+	float			v;
+	float			b;
+	int				clear_img;
+}					t_env;
 
-typedef struct	s_hit_equa
+typedef struct		s_hit_equa
 {
-	t_vect		ab;
-	t_vect		ao;
-	t_vect		aa;
-	t_vect		oxb;
-	t_vect		v;
-	t_vect		inter;
-	t_vect		proj;
-	t_vect		*r_dir;
-	t_vect		*r_pos;
-	float		a;
-	float		b;
-	float		c;
-	float		ab2;
-}				t_hit_equa;
+	t_vect			ab;
+	t_vect			ao;
+	t_vect			aa;
+	t_vect			oxb;
+	t_vect			v;
+	t_vect			inter;
+	t_vect			proj;
+	t_vect			*r_dir;
+	t_vect			*r_pos;
+	float			a;
+	float			b;
+	float			c;
+	float			ab2;
+}					t_hit_equa;
 
-typedef struct	s_col_var
+typedef struct		s_col_var
 {
-	t_vect		r;
-	t_vect		temp;
-	float		colour[5];
-	int			k;
-	t_obj		*res;
-}				t_col_var;
+	t_vect			r;
+	t_vect			temp;
+	float			colour[5];
+	int				k;
+	t_obj			*res;
+}					t_col_var;
 
-typedef struct	s_tab_var
+typedef struct		s_tab_var
 {
-	int			k;
-	int			fd;
-	char		*line;
-	char		**tab;
-	int			size[2];
-}				t_tab_var;
 
-typedef struct	s_var_shp
-{
-	t_vect		dist;
-	float		b;
-	float		d;
-	float		k[2];
-	int			ret;
-}				t_var_sph;
+	int				k;
+	int				fd;
+	char			*line;
+	char			**tab;
+	int				size[2];
+}					t_tab_var;
 
-typedef struct	s_var_tri
+typedef struct		s_var_shp
 {
-	t_vect		e[2];
-	t_vect		p[2];
-	float		inv;
-	float		det;
-	float		v[3];
-}				t_var_tri;
+	t_vect			dist;
+	float			b;
+	float			d;
+	float			k[2];
+	int				ret;
+}					t_var_sph;
+
+typedef struct		s_var_tri
+{
+	t_vect			e[2];
+	t_vect			p[2];
+	float			inv;
+	float			det;
+	float			v[3];
+}					t_var_tri;
 
 /*
 **	Prototypes
 */
 
-int				ft_key_input(int key, t_env *e);
-int				ft_draw(t_env *e);
+int					ft_key_input(int key, t_env *e);
+int					ft_draw(t_env *e);
 
-void			raytracer(t_env *e);
-void			create_ray(t_env *e, t_vect *ray, int x, int y);
-int				cast_ray(t_env *e, t_vect *ray, int x, int y);
-int				colour_phong(t_env *e, t_obj *obj, float dist, int a);
-int				try_collision(t_env *e, t_vect *r_pos, int id, t_spot *spot);
-void			init_spots(t_env *e, t_vect *r_pos, t_vect *r_dir);
-void			init_tab_obj(t_env *e, char *src);
-int				hit_sphere(t_obj *s, t_vect *r_pos, t_vect *r_dir, float *t);
-void			norm_sphere(t_vect *r_pos, t_obj *obj, t_vect *ray, t_vect *n);
-int				hit_plane(t_obj *p, t_vect *r_pos, t_vect *r_dir, float *t);
-void			norm_plane(t_vect *r_pos, t_obj *obj, t_vect *ray, t_vect *n);
-int				hit_cylinder(t_obj *s, t_vect *r_pos, t_vect *r_dir, float *t);
-void			norm_cylinder(t_vect *r_pos, t_obj *o, t_vect *ray, t_vect *n);
-int				hit_triangle(t_obj *s, t_vect *r_pos, t_vect *r_dir, float *t);
-int				hit_cone(t_obj *c, t_vect *r_pos, t_vect *r_dir, float *t);
-int				ft_ahextocolour(char *ahex);
+void				raytracer(t_env *e);
+void				create_ray(t_env *e, t_vect *ray, int x, int y);
+int					cast_ray(t_env *e, t_vect *ray, int x, int y);
+int					colour_phong(t_env *e, t_obj *obj, float dist, int a);
+int					try_collision(t_env *e, t_vect *r_pos, int id, \
+		t_spot *spot);
+void				init_spots(t_env *e, t_vect *r_pos, t_vect *r_dir);
+void				init_tab_obj(t_env *e, char *src);
+int					hit_sphere(t_obj *s, t_vect *r_pos, t_vect *r_dir, \
+		float *t);
+void				norm_sphere(t_vect *r_pos, t_obj *obj, t_vect *ray, \
+		t_vect *n);
+int					hit_plane(t_obj *p, t_vect *r_pos, t_vect *r_dir, float *t);
+void				norm_plane(t_vect *r_pos, t_obj *obj, t_vect *ray, \
+		t_vect *n);
+int					hit_cylinder(t_obj *s, t_vect *r_pos, t_vect *r_dir, \
+		float *t);
+void				norm_cylinder(t_vect *r_pos, t_obj *o, t_vect *ray, \
+		t_vect *n);
+int					hit_triangle(t_obj *s, t_vect *r_pos, t_vect *r_dir, \
+		float *t);
+int					hit_cone(t_obj *c, t_vect *r_pos, t_vect *r_dir, float *t);
+int					ft_ahextocolour(char *ahex);
 
-double	dot_product(t_vect *v1, t_vect *v2);
-t_vect	*clamp_vec(t_vect *v1, double min, double max);
-double	clamp(double n, double min2, double max2);
-t_vect	*turn_orthogonal(t_vect *v1);
-t_vect	*cross_product(t_vect *v1, t_vect *v2);
-t_vect	*scalar_multiply(t_vect *a, double amount);
-t_vect	*normalize(t_vect *a);
-t_vect	*multiply(t_vect *v1, t_vect *v2);
-t_vect	*add(t_vect *v1, t_vect *v2);
-t_vect	*subtract(t_vect *v1, t_vect *v2);
-t_vect	*set_to(t_vect *v1, t_vect *v2);
-t_vect	*clamp_vec(t_vect *v1, double min, double max);
-double	clamp(double n, double min2, double max2);
-t_vect	*turn_orthogonal(t_vect *v1);
-t_vect	*cross_product(t_vect *v1, t_vect *v2);
-double	length_vec(t_vect *z);
-t_vect	*scalar_multiply(t_vect *a, double amount);
-void	ft_fill_img(t_img *i, unsigned int color);
-t_uint	ft_get_pixel_from_image(t_img *i, int x, int y);
-void	ft_pixel_put_to_image(t_img *i, int x, int y, unsigned int color);
-t_img	*ft_load_img(void *mlx, char *src);
-t_img	*ft_new_img(void *mlx, int width, int height);
-size_t	ft_tablen(void **tab);
-double		ft_atof(const char *str);
-char			*ft_convert_base(char *nbr, char *base_from, char *base_to);
-size_t	ft_len_untill(const char *str, char c);
-char	*ft_strrev(char *s);
+/*
+**		functions to rewrite:
+*/
 
-void			ft_exit(int error);
-int				ft_exit_prog(t_env *env);
-int				count_tabs(char **tab);
-int				val_tab_count(char **tab);
-int				remove_tabs(char **str);
-void			change_camera(t_env *env, char **tab);
-int				valid_object(char *str);
+double				dot_product(t_vect *v1, t_vect *v2);
+t_vect				*clamp_vec(t_vect *v1, double min, double max);
+double				clamp(double n, double min2, double max2);
+t_vect				*turn_orthogonal(t_vect *v1);
+t_vect				*cross_product(t_vect *v1, t_vect *v2);
+t_vect				*scalar_multiply(t_vect *a, double amount);
+t_vect				*normalize(t_vect *a);
+t_vect				*multiply(t_vect *v1, t_vect *v2);
+t_vect				*add(t_vect *v1, t_vect *v2);
+t_vect				*subtract(t_vect *v1, t_vect *v2);
+t_vect				*set_to(t_vect *v1, t_vect *v2);
+t_vect				*clamp_vec(t_vect *v1, double min, double max);
+double				clamp(double n, double min2, double max2);
+t_vect				*turn_orthogonal(t_vect *v1);
+t_vect				*cross_product(t_vect *v1, t_vect *v2);
+double				length_vec(t_vect *z);
+t_vect				*scalar_multiply(t_vect *a, double amount);
+void				ft_fill_img(t_img *i, unsigned int color);
+t_uint				ft_get_pixel_from_image(t_img *i, int x, int y);
+void				ft_pixel_put_to_image(t_img *i, int x, int y, \
+		unsigned int color);
+t_img				*ft_load_img(void *mlx, char *src);
+t_img				*ft_new_img(void *mlx, int width, int height);
+size_t				ft_tablen(void **tab);
+double				ft_atof(const char *str);
+char				*ft_convert_base(char *nbr, char *base_from, char *base_to);
+size_t				ft_len_untill(const char *str, char c);
+char				*ft_strrev(char *s);
+
+/*
+**		newer functions:
+*/
+
+void				ft_exit(int error);
+int					ft_exit_prog(t_env *env);
+int					count_tabs(char **tab);
+int					val_tab_count(char **tab);
+int					remove_tabs(char **str);
+void				change_camera(t_env *env, char **tab);
+int					valid_object(char *str);
 
 #endif

@@ -18,7 +18,7 @@ void	ft_fill_img(t_img *i, unsigned int color)
 	int		y;
 
 	x = -1;
-	while ((y = -1), ++x < i->width)
+	while (ADD_LINE22)
 		while (++y < i->height)
 		{
 			i->udata[y * i->sl_div + x * i->bpp_div] = color;
